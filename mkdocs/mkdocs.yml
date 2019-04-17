@@ -1,0 +1,61 @@
+site_name: 'Terraformで構築するAWS'
+
+theme:
+  name: 'material'
+  language: 'ja'
+  palette:
+    primary: 'blue grey'
+    accent: 'blue grey'
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
+  highlightjs: true
+  hljs_languages:
+    - 'yaml'
+    - 'dockerfile'
+    - 'ruby'
+
+extra:
+  search:
+    language: 'jp'
+
+markdown_extensions:
+  - 'admonition'
+  - 'footnotes'
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+extra_css:
+  - 'assets/custom.css'
+
+extra_javascript:
+  - 'assets/custom.js'
+
+nav:
+  - 'Home': 'index.md'
+  - 'はじめてのTerraform':
+      - 'Terraformとは': 'first/about.md'
+      - '環境を準備する': 'first/preparation.md'
+      - 'とりあえず触ってみる': 'first/handson.md'
+  - 'ハンズオン':
+      - '概要': 'handson/about.md'
+      - 'VPCの構築': 'handson/vpc.md'
+      - 'ECSの起動': 'handson/ecs.md'
+      - 'https化': 'handson/https.md'
+  - '自作アプリの起動':
+      - '概要': 'about.md'
+      - 'MySQLの起動': 'handson/aurora.md'
+      - 'ECRへ登録': 'handson/selfmade.md'
+      - 'ECSの起動': 'handson/selfmade.md'
+      - '片付け': 'handson/cleanup.md'
+  - 'おまけ':
+      - '変数を使用する': 'variable.md'
+      - 'ファイルの分割': 'module.md'
+      - '設定情報をAWSへ格納': 'handson/aurora.md'
+      - 'オートスケール': 'handson/cleanup.md'
+      - 'CI/CD': 'handson/cleanup.md'
+  - 'Next Step': 'next-step.md'
