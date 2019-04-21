@@ -50,7 +50,7 @@ IAMサービスのトップページからユーザー一覧へアクセス。
 
 
 !!! シークレットキーをgitへ上げないための保険
-    commitの内容をスキャンし、AWSアクセスキーが含まれていたらそのcommitをリジェクトしてくれるツールです。  
+    git commit時にcommitの内容をスキャンし、AWSアクセスキーが含まれていたらそのcommitをリジェクトしてくれるツール"git-secret"が存在します。  
     保険のためにもAWSを扱うリポジトリでは有効化しておくと良いでしょう。  
 
     [awslabs/git-secrets: Prevents you from committing secrets and credentials into git repositories](https://github.com/awslabs/git-secrets)

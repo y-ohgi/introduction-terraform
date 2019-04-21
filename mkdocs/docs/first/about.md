@@ -4,7 +4,7 @@
 ## Infrastructure as Code
 TerraformはInfrastructure as Codeのアプローチを行うためのツールです。  
 
-Infrastructure as Code はその名前の通り、「インフラの構成をコード化しよう」というアプローチです。  
+Infrastructure as Code はその名前の通り、「インフラのコード化」のためのアプローチです。  
 構成を **宣言的** に記述することによって **コードベースでインフラの管理** を行うとができ、属人化を防ぐことができます。  
 また、コードベースで管理することにより **インフラのバージョン管理** が可能かつ、そのコードを読むことで現在の構成を一覧することも可能です。
 
@@ -30,7 +30,7 @@ RubyライクなHCLというDSLでコードを記述します。
 また、TerraformはAWS専用のツールではありません。  
 AWS以外のクラウドであるGCPやAzureでも使用でき、他にもDatadogやHerokuなどの管理を行うことが可能です。  
 
-> [Providers - Terraform by HashiCorp](https://www.terraform.io/docs/providers/)
+[Providers - Terraform by HashiCorp](https://www.terraform.io/docs/providers/)
 
 ### CloudFormation
 AWSによるAWSのためのAWSのInfrastructure as Codeツール。
@@ -50,6 +50,6 @@ Infrastructure as Codeと一概に言っても様々な責務があるという�
 
 !!! note "で、何を使えば良いわけ？"
     インフラの構成管理はAWSの場合であればTerraformとCloudFormation、どちらを使用しても問題ないでしょう。  
-    AWS以外にGCPやAzureを使用する予定、他にもDatadogをコード化したいという要求がある/予想できるのであればAWS専用のCloudFormationではなくTerraformが選択されます。  
-    また、AnsibleのようなOSより上の構成管理のモチベーションがある場合は、そもそもDockerとオーケストレーションツールを使用し、Infrastructure as Codeを使用する余地を与えないことが望ましいと筆者は考えます。もちろん、ベアメタルやVMでないと実現できないケースも存在するのでその場合はAnsibleのようなツールを使用しましょう。  
+    AWS以外にGCP・Azure・Datadog・PagerDutyなどの様々なプロバイダーをコード化したいという要求がある/予想できるのであればAWS専用のCloudFormationではなくTerraformが選択されます。  
+    また、AnsibleのようなOSより上の構成管理のモチベーションがある場合は、そもそもDockerとコンテナオーケストレーションツールを使用し、Ansible(やChef)のようなInfrastructure as Codeを使用する余地を与えないことが望ましいと筆者は考えます。もちろん、ベアメタルやVMでないと実現できないケースも存在するのでその場合はAnsibleのようなツールを使用しましょう。  
     結論、「クラウドはTerraform、アプリはDocker」を使用することをオススメします。

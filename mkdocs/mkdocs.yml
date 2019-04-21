@@ -43,8 +43,9 @@ nav:
       - 'とりあえず触ってみる': 'first/handson.md'
   - 'ハンズオン':
       - '概要': 'handson/about.md'
-      - 'VPCの構築': 'handson/vpc.md'
-      - 'ECSの起動': 'handson/ecs.md'
+      - 'VPC': 'handson/vpc.md'
+      - 'ALB': 'handson/alb.md'
+      - 'ECS': 'handson/ecs.md'
       - 'https化': 'handson/https.md'
   - '自作アプリの起動':
       - '概要': 'about.md'
