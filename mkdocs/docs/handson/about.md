@@ -4,7 +4,9 @@
 上記の画像が今回のハンズオンで構築を行う構成図になります。  
 目標としているのは「nginxの起動とそのhttps化」です。
 
-TODO: このハンズオンの章が完成したgithub
+また、このハンズオンで使用するコードは以下です。
+
+[https://github.com/y-ohgi/introduction-terraform/tree/master/handson/vpc-handson](https://github.com/y-ohgi/introduction-terraform/tree/master/handson/vpc-handson)
 
 ## 使用するサービスと用途
 ハンズオンで構築するリソースについて概要を説明します。

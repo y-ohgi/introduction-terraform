@@ -1,7 +1,6 @@
 ## この章の目標
 ![ecs-nginx-design.png](imgs/ecs-nginx-design.png)
 
-
 ## ALB
 ![alb](imgs/alb-http-pong.png)
 
@@ -17,16 +16,23 @@ resource "aws_security_group" "alb" {
   description = "handson alb"
   vpc_id      = "${aws_vpc.main.id}"
 
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "TCP"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
   tags = {
     Name = "handson-alb"
   }
+}
+
+# SecurityGroup Rule
+# https://www.terraform.io/docs/providers/aws/r/security_group.html
+resource "aws_security_group_rule" "alb_http" {
+  security_group_id = "${aws_security_group.alb.id}"
+
+  type = "ingress"
+
+  from_port = 80
+  to_port   = 80
+  protocol  = "tcp"
+
+  cidr_blocks = ["0.0.0.0/0"]
 }
 
 # ALB

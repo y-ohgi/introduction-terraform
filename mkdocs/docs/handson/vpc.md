@@ -144,10 +144,13 @@ Public SubnetとPrivate Subnetの2種類と、ap-northeast-1リージョン(東�
 # Subnet
 # https://www.terraform.io/docs/providers/aws/r/subnet.html
 resource "aws_subnet" "public_1a" {
-  vpc_id = "${aws_vpc.main.id}"         # 先程作成したVPCを参照し、そのVPC内にSubnetを立てる
+  # 先程作成したVPCを参照し、そのVPC内にSubnetを立てる
+  vpc_id = "${aws_vpc.main.id}"
 
-  availability_zone = "ap-northeast-1a" # ap-northeast-1aのAZを指定
-  cidr_block        = "10.0.1.0/24"     # CIDRを指定
+  # Subnetを作成するAZ
+  availability_zone = "ap-northeast-1a"
+
+  cidr_block        = "10.0.1.0/24"
 
   tags = {
     Name = "handson-public-1a"
@@ -210,6 +213,7 @@ resource "aws_subnet" "public_1c" {
   vpc_id = "${aws_vpc.main.id}"
 
   availability_zone = "ap-northeast-1c"
+
   cidr_block        = "10.0.2.0/24"
 
   tags = {
@@ -221,6 +225,7 @@ resource "aws_subnet" "public_1d" {
   vpc_id = "${aws_vpc.main.id}"
 
   availability_zone = "ap-northeast-1d"
+
   cidr_block        = "10.0.3.0/24"
 
   tags = {
@@ -228,6 +233,7 @@ resource "aws_subnet" "public_1d" {
   }
 }
 
+# Private Subnets
 resource "aws_subnet" "private_1a" {
   vpc_id = "${aws_vpc.main.id}"
 
@@ -596,14 +602,14 @@ Plan: 9 to add, 0 to change, 0 to destroy.
 
 経路設定が行えているかWebコンソール上から確認してみましょう。  
 
-確認するポイントとしては以下です。
+確認ポイント
 
-1. "handson-" という名前からはじまるRoute Tableが4つあるか
-2. "handson-public" に3つSubnetが登録されているか
-3. "handson-public" に登録されているSubnetはPrivate Subnetの命名になっているか
-4. "handson-public" の0.0.0.0への経路はInternet Gatewayを使用しているか
-5. "handson-private-*" は3つ存在し、それぞれ1つずつSubnetを持っているか
-6. "handson-private-*" は0.0.0.0への経路はNAT Gatewayを使用しているか
+> 1. "handson-" という名前からはじまるRoute Tableが4つあるか
+> 2. "handson-public" に3つSubnetが登録されているか
+> 3. "handson-public" に登録されているSubnetはPrivate Subnetの命名になっているか
+> 4. "handson-public" の0.0.0.0への経路はInternet Gatewayを使用しているか
+> 5. "handson-private-*" は3つ存在し、それぞれ1つずつSubnetを持っているか
+> 6. "handson-private-*" は0.0.0.0への経路はNAT Gatewayを使用しているか
 
 ![rtb-list](imgs/rtb-list.png)
 [https://ap-northeast-1.console.aws.amazon.com/vpc/home?region=ap-northeast-1#RouteTables:sort=routeTableId](https://ap-northeast-1.console.aws.amazon.com/vpc/home?region=ap-northeast-1#RouteTables:sort=routeTableId)
