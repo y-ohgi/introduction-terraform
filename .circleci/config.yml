@@ -11,11 +11,9 @@ jobs:
       - run:
           name: Build
           command: |
-            mkdocs build
-      - run:
-          name: Cleanup
-          command: |
             mv .git /tmp/
+            cd mkdocs
+            mkdocs build
             cp -r site/* /tmp/
       - run:
           name: Publish
