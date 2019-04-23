@@ -48,8 +48,8 @@ nav:
       - 'ECS': 'handson/ecs.md'
       - 'https化': 'handson/https.md'
   - '自作アプリの起動':
-      - '概要': 'handson/about.md'
-      - 'シンタックスの活用': 'handson/syntax.md'
+      - '概要': 'selfmade/about.md'
+      - 'シンタックスの活用': 'selfmade/syntax.md'
       - 'MySQLの起動': 'handson/aurora.md'
       - 'ECRへ登録': 'handson/selfmade.md'
       - 'ECSの起動': 'handson/selfmade.md'
