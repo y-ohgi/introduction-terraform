@@ -16,6 +16,14 @@ resource "aws_security_group" "alb" {
   description = "handson alb"
   vpc_id      = "${aws_vpc.main.id}"
 
+  # セキュリティグループ内のリソースからインターネットへのアクセスを許可する
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags = {
     Name = "handson-alb"
   }
@@ -26,6 +34,7 @@ resource "aws_security_group" "alb" {
 resource "aws_security_group_rule" "alb_http" {
   security_group_id = "${aws_security_group.alb.id}"
 
+  # セキュリティグループ内のリソースへインターネットからのアクセスを許可する
   type = "ingress"
 
   from_port = 80
@@ -50,7 +59,7 @@ resource "aws_lb" "main" {
 ```console
 # terraform plan
   :
-Plan: 2 to add, 0 to change, 0 to destroy.
+Plan: 3 to add, 0 to change, 0 to destroy.
   :
 # terraform apply
   :
