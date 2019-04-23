@@ -231,4 +231,4 @@ resource "aws_vpc" "main" {
 [ハンズオン](../../handson/about/) で定義したコードは非常長く、可読性が悪くなっています。  
 この章で紹介したシンタックスを使用するとどの様になるか、サンプルコードを記述しました。この後はこのサンプルコードをもとに構築を進めます。
 
-[https://github.com/y-ohgi/introduction-terraform-example](https://github.com/y-ohgi/introduction-terraform-example)
+[https://github.com/y-ohgi/introduction-terraform/tree/master/handson/syntax](https://github.com/y-ohgi/introduction-terraform/tree/master/handson/syntax)
