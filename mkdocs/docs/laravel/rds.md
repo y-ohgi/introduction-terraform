@@ -122,8 +122,3 @@ output "endpoint" {
 }
 ```
 
-
-XXX: 基本となるコードへのURL. introduction-terraform-example/terraform
-
-XXX: 書く
-jj
