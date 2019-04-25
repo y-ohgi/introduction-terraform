@@ -6,7 +6,7 @@
 
 また、このハンズオンで使用するコードは以下です。
 
-[https://github.com/y-ohgi/introduction-terraform/tree/master/handson/vpc-handson](https://github.com/y-ohgi/introduction-terraform/tree/master/handson/vpc-handson)
+[https://github.com/y-ohgi/introduction-terraform/tree/master/handson/handson](https://github.com/y-ohgi/introduction-terraform/tree/master/handson/handson)
 
 ## 使用するサービスと用途
 ハンズオンで構築するリソースについて概要を説明します。
