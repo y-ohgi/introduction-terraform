@@ -75,10 +75,11 @@ module "ecs_laravel" {
   subnet_ids         = "${module.network.private_subnet_ids}"
   https_listener_arn = "${module.elb.https_listener_arn}"
 
-  db_host     = "${module.rds.endpoint}"
-  db_username = ""
-  db_password = ""
-  db_database = ""
+  db_host = "${module.rds.endpoint}"
+
+  db_username = "myusername"
+  db_password = "mypassword"
+  db_database = "mydatabase"
 
   app_key = "base64:p5Fu8gRUOuPUXzY3VcxpnYsUR9f2h8nTSm5JlYkzPTM="
 }
