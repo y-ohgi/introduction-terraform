@@ -606,7 +606,7 @@ Plan: 9 to add, 0 to change, 0 to destroy.
 
 > 1. "handson-" という名前からはじまるRoute Tableが4つあるか
 > 2. "handson-public" に3つSubnetが登録されているか
-> 3. "handson-public" に登録されているSubnetはPrivate Subnetの命名になっているか
+> 3. "handson-public" に登録されているSubnetはPublic Subnetの命名になっているか
 > 4. "handson-public" の0.0.0.0への経路はInternet Gatewayを使用しているか
 > 5. "handson-private-*" は3つ存在し、それぞれ1つずつSubnetを持っているか
 > 6. "handson-private-*" は0.0.0.0への経路はNAT Gatewayを使用しているか
