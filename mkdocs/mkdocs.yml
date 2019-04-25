@@ -61,4 +61,4 @@ nav:
   #     - '設定情報をAWSへ格納': 'handson/aurora.md'
   #     - 'オートスケール': 'handson/cleanup.md'
   #     - 'CI/CD': 'handson/cleanup.md'
-  # - 'Next Step': 'next-step.md'
+  - 'Next Step': 'next-step.md'
