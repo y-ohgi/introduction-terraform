@@ -241,7 +241,7 @@ resource "aws_subnet" "private_1a" {
   cidr_block        = "10.0.10.0/24"
 
   tags = {
-    Name = "handson-public-1a"
+    Name = "handson-private-1a"
   }
 }
 
