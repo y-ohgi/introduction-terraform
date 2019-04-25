@@ -283,3 +283,5 @@ resource "aws_ecs_service" "main" {
 ALBのWebコンソールに表示されているDNSへhttpでアクセスし、nginxが表示されれば成功です
 
 [https://ap-northeast-1.console.aws.amazon.com/ec2/v2/home?region=ap-northeast-1#LoadBalancers](https://ap-northeast-1.console.aws.amazon.com/ec2/v2/home?region=ap-northeast-1#LoadBalancer:)
+
+
