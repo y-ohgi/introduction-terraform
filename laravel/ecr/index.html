@@ -1,0 +1,757 @@
+
+
+
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="クリップボードへコピー">
+      
+        <meta name="lang:clipboard.copied" content="コピーしました">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="何も見つかりませんでした">
+      
+        <meta name="lang:search.result.one" content="1件見つかりました">
+      
+        <meta name="lang:search.result.other" content="#件見つかりました">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-　、。，．]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.2">
+    
+    
+      
+        <title>ECR - Terraformで構築するAWS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#546e7a">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../assets/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue-grey" data-md-color-accent="blue-grey">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#_1" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Terraformで構築するAWS" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Terraformで構築するAWS
+            </span>
+            <span class="md-header-nav__topic">
+              ECR
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            検索キーワードを入力してください
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="Terraformで構築するAWS" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Terraformで構築するAWS
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      はじめてのTerraform
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        はじめてのTerraform
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../first/about/" title="Terraformとは" class="md-nav__link">
+      Terraformとは
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../first/preparation/" title="環境を準備する" class="md-nav__link">
+      環境を準備する
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../first/handson/" title="とりあえず触ってみる" class="md-nav__link">
+      とりあえず触ってみる
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      ハンズオン
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        ハンズオン
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../handson/about/" title="概要" class="md-nav__link">
+      概要
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../handson/vpc/" title="VPC" class="md-nav__link">
+      VPC
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../handson/alb/" title="ALB" class="md-nav__link">
+      ALB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../handson/ecs/" title="ECS" class="md-nav__link">
+      ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../handson/https/" title="https化" class="md-nav__link">
+      https化
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../handson/syntax/" title="シンタックスの活用" class="md-nav__link">
+      シンタックスの活用
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      laravelを動かす
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        laravelを動かす
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../about/" title="概要" class="md-nav__link">
+      概要
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../docker-compose/" title="docker-composeの起動" class="md-nav__link">
+      docker-composeの起動
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../rds/" title="RDS" class="md-nav__link">
+      RDS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        ECR
+      </label>
+    
+    <a href="./" title="ECR" class="md-nav__link md-nav__link--active">
+      ECR
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">目次</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="この章の目標" class="md-nav__link">
+    この章の目標
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="やること" class="md-nav__link">
+    やること
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ecr" title="ECRの作成" class="md-nav__link">
+    ECRの作成
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker" title="Dockerのビルド" class="md-nav__link">
+    Dockerのビルド
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ecrpush" title="ECRへのpush" class="md-nav__link">
+    ECRへのpush
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ecs/" title="ECS" class="md-nav__link">
+      ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cleanup/" title="片付け" class="md-nav__link">
+      片付け
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../next-step/" title="Next Step" class="md-nav__link">
+      Next Step
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">目次</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="この章の目標" class="md-nav__link">
+    この章の目標
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="やること" class="md-nav__link">
+    やること
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ecr" title="ECRの作成" class="md-nav__link">
+    ECRの作成
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker" title="Dockerのビルド" class="md-nav__link">
+    Dockerのビルド
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ecrpush" title="ECRへのpush" class="md-nav__link">
+    ECRへのpush
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>ECR</h1>
+                
+                <h2 id="_1">この章の目標<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>この章ではLaravelを立ち上げるためにDockerの準備を行います。</p>
+<h2 id="_2">やること<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>ECRの作成</li>
+<li>dockerのビルド<ul>
+<li>ホストマシンでやる的なこと</li>
+</ul>
+</li>
+<li>ECRへのpush<ul>
+<li>aws cli のログイン</li>
+</ul>
+</li>
+</ul>
+<h3 id="ecr">ECRの作成<a class="headerlink" href="#ecr" title="Permanent link">&para;</a></h3>
+<p>Dockerの保管にはAWSのDockerマネージドサービスである "Elastic Container Registry" を使用します。<br />
+イメージとしてはDockerHubのAWS版のようなものです。</p>
+<p>前提としてはECRをTerraformで管理しません。<br />
+Terraformは1環境(STG/PRD毎)の定義のために使用しますが、Dockerイメージは一般的に複数環境にまたがって共通のものを使用します。<br />
+IaCは非常に便利ですが、100%コード化するべきなのかは適宜判断しましょう。</p>
+<p>ECRはAWSコマンドから作成します。  </p>
+<p><code>nginx</code> と <code>app</code> (Laravel)'の2つのリポジトリを作成します。</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> aws ecr create-repository --repository-name nginx
+<span class="gp">$</span> aws ecr create-repository --repository-name app
+</pre></div>
+
+
+<p>作成されたかの確認します。</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> aws ecr describe-repositories --query <span class="s1">&#39;repositories[].repositoryName&#39;</span>
+<span class="go">[</span>
+<span class="go">    &quot;nginx&quot;,</span>
+<span class="go">    &quot;app&quot;</span>
+<span class="go">]</span>
+</pre></div>
+
+
+<h3 id="docker">Dockerのビルド<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h3>
+<p>ハンズオンリポジトリへチェックアウト</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> /path/to/introduction-terraform-example/laravel
+</pre></div>
+
+
+<p>nginxのビルド</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> <span class="nb">export</span> <span class="nv">ECR_URI_NGINX</span><span class="o">=</span><span class="k">$(</span>aws ecr describe-repositories --repository-names nginx --query <span class="s1">&#39;repositories[0].repositoryUri&#39;</span> --output text<span class="k">)</span>
+<span class="gp">$</span> docker build -t <span class="si">${</span><span class="nv">ECR_URI_NGINX</span><span class="si">}</span> -f docker/nginx/Dockerfile .
+</pre></div>
+
+
+<p>Laravelのビルド</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> <span class="nb">export</span> <span class="nv">ECR_URI_APP</span><span class="o">=</span><span class="k">$(</span>aws ecr describe-repositories --repository-names app --query <span class="s1">&#39;repositories[0].repositoryUri&#39;</span> --output text<span class="k">)</span>
+<span class="gp">$</span> docker build -t <span class="si">${</span><span class="nv">ECR_URI_APP</span><span class="si">}</span> .
+</pre></div>
+
+
+<h3 id="ecrpush">ECRへのpush<a class="headerlink" href="#ecrpush" title="Permanent link">&para;</a></h3>
+<p>ECRへログインします。  </p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> <span class="k">$(</span>aws ecr get-login --no-include-email<span class="k">)</span>
+</pre></div>
+
+
+<p>nginxのpush</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> docker push <span class="si">${</span><span class="nv">ECR_URI_NGINX</span><span class="si">}</span>
+</pre></div>
+
+
+<p>Laravelのpush</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> docker push <span class="si">${</span><span class="nv">ECR_URI_APP</span><span class="si">}</span>
+</pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../rds/" title="RDS" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前
+                </span>
+                RDS
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../ecs/" title="ECS" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  次
+                </span>
+                ECS
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.267712eb.js"></script>
+      
+        
+        
+          
+          <script src="../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../assets/custom.js"></script>
+      
+    
+  </body>
+</html>

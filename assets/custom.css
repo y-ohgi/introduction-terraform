@@ -1,0 +1,15 @@
+.md-typeset h1 {
+  margin: 1em 0 0;
+}
+
+img {
+  display: block;
+  margin: 10px auto;
+  border: 3px solid #546e7a;
+}
+
+/* footer */
+.md-footer-nav__link {
+  padding-top: 1rem;
+  padding-bottom: 0rem;
+}

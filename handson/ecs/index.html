@@ -1,0 +1,1022 @@
+
+
+
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="クリップボードへコピー">
+      
+        <meta name="lang:clipboard.copied" content="コピーしました">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="何も見つかりませんでした">
+      
+        <meta name="lang:search.result.one" content="1件見つかりました">
+      
+        <meta name="lang:search.result.other" content="#件見つかりました">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-　、。，．]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.2">
+    
+    
+      
+        <title>ECS - Terraformで構築するAWS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#546e7a">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../assets/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue-grey" data-md-color-accent="blue-grey">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#ecs" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Terraformで構築するAWS" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Terraformで構築するAWS
+            </span>
+            <span class="md-header-nav__topic">
+              ECS
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            検索キーワードを入力してください
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="Terraformで構築するAWS" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Terraformで構築するAWS
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      はじめてのTerraform
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        はじめてのTerraform
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../first/about/" title="Terraformとは" class="md-nav__link">
+      Terraformとは
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../first/preparation/" title="環境を準備する" class="md-nav__link">
+      環境を準備する
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../first/handson/" title="とりあえず触ってみる" class="md-nav__link">
+      とりあえず触ってみる
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      ハンズオン
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        ハンズオン
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../about/" title="概要" class="md-nav__link">
+      概要
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../vpc/" title="VPC" class="md-nav__link">
+      VPC
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../alb/" title="ALB" class="md-nav__link">
+      ALB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        ECS
+      </label>
+    
+    <a href="./" title="ECS" class="md-nav__link md-nav__link--active">
+      ECS
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">目次</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ecs" title="ECSとは" class="md-nav__link">
+    ECSとは
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="構成" class="md-nav__link">
+    構成
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="コンテナの管理" class="md-nav__link">
+    コンテナの管理
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="タスク定義の作成" class="md-nav__link">
+    タスク定義の作成
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="クラスターの作成" class="md-nav__link">
+    クラスターの作成
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="サービス" class="md-nav__link">
+    サービス
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="ロードバランサの設定を追加" class="md-nav__link">
+    ロードバランサの設定を追加
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="サービスの作成" class="md-nav__link">
+    サービスの作成
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../https/" title="https化" class="md-nav__link">
+      https化
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../syntax/" title="シンタックスの活用" class="md-nav__link">
+      シンタックスの活用
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      laravelを動かす
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        laravelを動かす
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/about/" title="概要" class="md-nav__link">
+      概要
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/docker-compose/" title="docker-composeの起動" class="md-nav__link">
+      docker-composeの起動
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/rds/" title="RDS" class="md-nav__link">
+      RDS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/ecr/" title="ECR" class="md-nav__link">
+      ECR
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/ecs/" title="ECS" class="md-nav__link">
+      ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/cleanup/" title="片付け" class="md-nav__link">
+      片付け
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../next-step/" title="Next Step" class="md-nav__link">
+      Next Step
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">目次</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ecs" title="ECSとは" class="md-nav__link">
+    ECSとは
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="構成" class="md-nav__link">
+    構成
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="コンテナの管理" class="md-nav__link">
+    コンテナの管理
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="タスク定義の作成" class="md-nav__link">
+    タスク定義の作成
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="クラスターの作成" class="md-nav__link">
+    クラスターの作成
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="サービス" class="md-nav__link">
+    サービス
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="ロードバランサの設定を追加" class="md-nav__link">
+    ロードバランサの設定を追加
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="サービスの作成" class="md-nav__link">
+    サービスの作成
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>ECS</h1>
+                
+                <h2 id="ecs">ECSとは<a class="headerlink" href="#ecs" title="Permanent link">&para;</a></h2>
+<p><strong>"Elastic Container Service"</strong> はAWSが開発したDockerオーケストレーションツールです。<br />
+開発者はコンテナを動かすことに集中できるよう開発されていてクラスターの管理はAWSが行ってくれます。<br />
+そのため、プロダクションで活用するまでの学習コストが低く、他のAWSサービスとの連携もしやすいことが特徴です。</p>
+<h3 id="_1">構成<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p><img alt="arch" src="../imgs/ecs-control-data.png" /></p>
+<p>ECSは <strong>"コントロールプレーン"</strong> と <strong>"データプレーン"</strong> の2つに別れます。  </p>
+<p>データプレーンは1台以上のEC2をリソースプールとして扱うもので、データプレーン上にコンテナは配置されます。<br />
+コントロールプレーンはデータプレーン上へコンテナの配置とその管理を行います。  </p>
+<p>基本的に開発者はEC2を立てて、ECSのコンソール上で「どんなコンテナが必要か」定義するだけであとはよしなにコンテナが動きます。  </p>
+<div class="admonition note">
+<p class="admonition-title">Fargate</p>
+<p>データプレーンを構成するEC2郡は開発者が管理する必要があります。<br />
+OS/ライブラリのアップデート/セキュリティパッチや使わなくなったファイルのローテート、リソースが足りなくなった際にスケールさせるなどを行う必要があります。<br />
+Fargateは <strong>"データプレーンの第二の選択肢"</strong>です。<br />
+コンテナを動かすリソースプールとして、開発者が管理するEC2郡ではなくAWSがマネージするリソースプールを使用します。<br />
+これによりEC2の管理から手離れができ学習コスト/運用コストが低くなります。反面、EC2をうまく使った時より利用料は高くなります。<br />
+基本的にAWSに不慣れな場合はデータプレーンにEC2ではなくFargateを選択したほうが良いでしょう。<br />
+<img alt="fargate" src="../imgs/ecs-fargate.png" /></p>
+</div>
+<h3 id="_2">コンテナの管理<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><img alt="ecs" src="../imgs/ecs.png" />
+ECSでリクエストを受け付けるコンテナを起動する場合、基本的に上記のような構成になります。</p>
+<p>ECSを使用する際に重要なのは "タスク定義", "サービス", "タスク"の3つです。</p>
+<ul>
+<li>タスク定義<ul>
+<li>どんなコンテナをどんな設定で動かすかを定義する</li>
+</ul>
+</li>
+<li>サービス<ul>
+<li>どのタスク定義でコンテナを立ち上げ、そのコンテナとどのロードバランサ(ターゲットグループ, リスナー)と紐付けるか</li>
+</ul>
+</li>
+<li>タスク<ul>
+<li>タスク定義をもとに起動したコンテナをタスクと呼びます</li>
+</ul>
+</li>
+</ul>
+<p>開発者がECSを使用する際は「タスク定義を作成し、そのタスク定義をもとにサービスを起動」する流れになります。</p>
+<h2 id="_3">タスク定義の作成<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p><img alt="td" src="../imgs/ecs-td.png" /></p>
+<p>nginxを立ち上げるための設定を記述します。  </p>
+<div class="codehilite"><pre><span></span><span class="c1"># Task Definition</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_ecs_task_definition&quot;</span> <span class="s2">&quot;main&quot;</span> <span class="p">{</span>
+  <span class="n">family</span> <span class="o">=</span> <span class="s2">&quot;handson&quot;</span>
+
+  <span class="c1"># データプレーンの選択</span>
+  <span class="n">requires_compatibilities</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;FARGATE&quot;</span><span class="o">]</span>
+
+  <span class="c1"># ECSタスクが使用可能なリソースの上限</span>
+  <span class="c1"># タスク内のコンテナはこの上限内に使用するリソースを収める必要があり、メモリが上限に達した場合OOM Killer にタスクがキルされる</span>
+  <span class="n">cpu</span>    <span class="o">=</span> <span class="s2">&quot;256&quot;</span>
+  <span class="n">memory</span> <span class="o">=</span> <span class="s2">&quot;512&quot;</span>
+
+  <span class="c1"># ECSタスクのネットワークドライバ</span>
+  <span class="c1"># Fargateを使用する場合は&quot;awsvpc&quot;決め打ち</span>
+  <span class="n">network_mode</span> <span class="o">=</span> <span class="s2">&quot;awsvpc&quot;</span>
+
+  <span class="c1"># 起動するコンテナの定義</span>
+  <span class="c1"># 「nginxを起動し、80ポートを開放する」設定を記述。</span>
+  <span class="n">container_definitions</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="dl">EOL</span>
+<span class="sh">[</span>
+<span class="sh">  {</span>
+<span class="sh">    &quot;name&quot;: &quot;nginx&quot;,</span>
+<span class="sh">    &quot;image&quot;: &quot;nginx:1.14&quot;,</span>
+<span class="sh">    &quot;portMappings&quot;: [</span>
+<span class="sh">      {</span>
+<span class="sh">        &quot;containerPort&quot;: 80,</span>
+<span class="sh">        &quot;hostPort&quot;: 80</span>
+<span class="sh">      }</span>
+<span class="sh">    ]</span>
+<span class="sh">  }</span>
+<span class="sh">]</span>
+<span class="dl">EOL</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>コードの適用を行うとリソースが1つ追加されれば成功です。</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform plan
+<span class="go">  :</span>
+<span class="go">Plan: 1 to add, 0 to change, 0 to destroy.</span>
+<span class="go">  :</span>
+<span class="gp">#</span> terraform apply
+<span class="go">  :</span>
+</pre></div>
+
+
+<p><a href="https://ap-northeast-1.console.aws.amazon.com/ecs/home?region=ap-northeast-1#/taskDefinitions">https://ap-northeast-1.console.aws.amazon.com/ecs/home?region=ap-northeast-1#/taskDefinitions</a></p>
+<h2 id="_4">クラスターの作成<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p><img alt="cluster" src="../imgs/ecs-cluster.png" /></p>
+<p>ECSクラスターを作成します。  </p>
+<div class="codehilite"><pre><span></span><span class="c1"># ECS Cluster</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/ecs_cluster.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_ecs_cluster&quot;</span> <span class="s2">&quot;main&quot;</span> <span class="p">{</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">&quot;handson&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>コードの適用を行うとリソースが1つ追加されれば成功です。</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform plan
+<span class="go">  :</span>
+<span class="go">Plan: 1 to add, 0 to change, 0 to destroy.</span>
+<span class="go">  :</span>
+<span class="gp">#</span> terraform apply
+<span class="go">  :</span>
+</pre></div>
+
+
+<h2 id="_5">サービス<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p><img alt="svc" src="../imgs/ecs-svc.png" /></p>
+<p>サービスはタスク定義をもとにタスク(コンテナ)を立ち上げ、そのタスクとロードバランサを紐付けるための仕組みです。  </p>
+<h3 id="_6">ロードバランサの設定を追加<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p><img alt="ecs alb" src="../imgs/ecs-alb.png" /></p>
+<p>まずはサービスとロードバランサを紐付けるための設定を追加しましょう。<br />
+ロードバランサとコンテナの紐付けは"ターゲットグループ"と"リスナー"の2つを使用します。</p>
+<ul>
+<li>ターゲットグループ<ul>
+<li>ヘルスチェックを行う</li>
+</ul>
+</li>
+<li>リスナー<ul>
+<li>ロードバランサがリクエスト受けた際、どのターゲットグループへリクエストを受け渡すのかの設定</li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">LBの種類</p>
+<p>AWSには "Application LoadBalancer", "Network LoadBalancer", "Classic LoadBalancer" の3つのロードバランサが用意されています。<br />
+歴史的にはもともとAWSはClassic LoadBalancerの1つしか用意されていませんでしたが、新しい選択肢としてApplication LoadBalancer とNetwork LoadBalancer の2つが登場しました。基本的にCLBは古く、新しいサービスではALBかNLBのどちらかを選択して使用します。<br />
+ALBとNLBは扱うネットワークのレイヤーが異なります。OSI参照モデルが想像が付きやすいです。ALBはレイヤー7(http/https)レベルでのトラフィックの振り分けが可能で、NLBはL4(TCP)レベルでの振り分けを行います。</p>
+</div>
+<p>コードを記述しましょう。</p>
+<div class="codehilite"><pre><span></span><span class="c1"># ELB Target Group</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/lb_target_group.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_lb_target_group&quot;</span> <span class="s2">&quot;main&quot;</span> <span class="p">{</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">&quot;handson&quot;</span>
+
+  <span class="c1"># ターゲットグループを作成するVPC</span>
+  <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_vpc.main.id}&quot;</span>
+
+  <span class="c1"># ALBからECSタスクのコンテナへトラフィックを振り分ける設定</span>
+  <span class="n">port</span>        <span class="o">=</span> <span class="mi">80</span>
+  <span class="n">protocol</span>    <span class="o">=</span> <span class="s2">&quot;HTTP&quot;</span>
+  <span class="n">target_type</span> <span class="o">=</span> <span class="s2">&quot;ip&quot;</span>
+
+  <span class="c1"># コンテナへの死活監視設定</span>
+  <span class="n">health_check</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="mi">80</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># ALB Listener Rule</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/lb_listener_rule.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_lb_listener_rule&quot;</span> <span class="s2">&quot;main&quot;</span> <span class="p">{</span>
+  <span class="c1"># ルールを追加するリスナー</span>
+  <span class="n">listener_arn</span> <span class="o">=</span> <span class="s2">&quot;${aws_lb_listener.main.arn}&quot;</span>
+
+  <span class="c1"># 受け取ったトラフィックをターゲットグループへ受け渡す</span>
+  <span class="n">action</span> <span class="p">{</span>
+    <span class="n">type</span>             <span class="o">=</span> <span class="s2">&quot;forward&quot;</span>
+    <span class="n">target_group_arn</span> <span class="o">=</span> <span class="s2">&quot;${aws_lb_target_group.main.id}&quot;</span>
+  <span class="p">}</span>
+
+  <span class="c1"># ターゲットグループへ受け渡すトラフィックの条件</span>
+  <span class="n">condition</span> <span class="p">{</span>
+    <span class="n">field</span>  <span class="o">=</span> <span class="s2">&quot;path-pattern&quot;</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;*&quot;</span><span class="o">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>コードの適用を行うとリソースが2つ追加されれば成功です。</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform plan
+<span class="go">  :</span>
+<span class="go">Plan: 2 to add, 0 to change, 0 to destroy.</span>
+<span class="go">  :</span>
+<span class="gp">#</span> terraform apply
+<span class="go">  :</span>
+</pre></div>
+
+
+<h3 id="_7">サービスの作成<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p><img alt="ecs svc create" src="../imgs/ecs-svc-create.png" /></p>
+<div class="codehilite"><pre><span></span><span class="c1"># SecurityGroup</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/security_group.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_security_group&quot;</span> <span class="s2">&quot;ecs&quot;</span> <span class="p">{</span>
+  <span class="nb">name</span>        <span class="o">=</span> <span class="s2">&quot;handson-ecs&quot;</span>
+  <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;handson ecs&quot;</span>
+
+  <span class="c1"># セキュリティグループを配置するVPC</span>
+  <span class="n">vpc_id</span>      <span class="o">=</span> <span class="s2">&quot;${aws_vpc.main.id}&quot;</span>
+
+  <span class="c1"># セキュリティグループ内のリソースからインターネットへのアクセス許可設定</span>
+  <span class="c1"># 今回の場合DockerHubへのPullに使用する。</span>
+  <span class="n">egress</span> <span class="p">{</span>
+    <span class="n">from_port</span>   <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">to_port</span>     <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">protocol</span>    <span class="o">=</span> <span class="s2">&quot;-1&quot;</span>
+    <span class="n">cidr_blocks</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="o">]</span>
+  <span class="p">}</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-ecs&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># SecurityGroup Rule</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/security_group.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_security_group_rule&quot;</span> <span class="s2">&quot;ecs&quot;</span> <span class="p">{</span>
+  <span class="n">security_group_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_security_group.ecs.id}&quot;</span>
+
+  <span class="c1"># インターネットからセキュリティグループ内のリソースへのアクセス許可設定</span>
+  <span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;ingress&quot;</span>
+
+  <span class="c1"># TCPでの80ポートへのアクセスを許可する</span>
+  <span class="n">from_port</span> <span class="o">=</span> <span class="mi">80</span>
+  <span class="n">to_port</span>   <span class="o">=</span> <span class="mi">80</span>
+  <span class="n">protocol</span>  <span class="o">=</span> <span class="s2">&quot;tcp&quot;</span>
+
+  <span class="c1"># 同一VPC内からのアクセスのみ許可</span>
+  <span class="n">cidr_blocks</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;10.0.0.0/16&quot;</span><span class="o">]</span>
+<span class="p">}</span>
+
+<span class="c1"># ECS Service</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/ecs_service.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_ecs_service&quot;</span> <span class="s2">&quot;main&quot;</span> <span class="p">{</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">&quot;handson&quot;</span>
+
+  <span class="c1"># 依存関係の記述。</span>
+  <span class="c1"># &quot;aws_lb_listener_rule.main&quot; リソースの作成が完了するのを待ってから当該リソースの作成を開始する。</span>
+  <span class="c1"># &quot;depends_on&quot; は &quot;aws_ecs_service&quot; リソース専用のプロパティではなく、Terraformのシンタックスのため他の&quot;resource&quot;でも使用可能</span>
+  <span class="n">depends_on</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;aws_lb_listener_rule.main&quot;</span><span class="o">]</span>
+
+  <span class="c1"># 当該ECSサービスを配置するECSクラスターの指定</span>
+  <span class="n">cluster</span> <span class="o">=</span> <span class="s2">&quot;${aws_ecs_cluster.main.name}&quot;</span>
+
+  <span class="c1"># データプレーンとしてFargateを使用する</span>
+  <span class="n">launch_type</span> <span class="o">=</span> <span class="s2">&quot;FARGATE&quot;</span>
+
+  <span class="c1"># ECSタスクの起動数を定義</span>
+  <span class="n">desired_count</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+
+  <span class="c1"># 起動するECSタスクのタスク定義</span>
+  <span class="n">task_definition</span> <span class="o">=</span> <span class="s2">&quot;${aws_ecs_task_definition.main.arn}&quot;</span>
+
+  <span class="c1"># ECSタスクへ設定するネットワークの設定</span>
+  <span class="n">network_configuration</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># タスクの起動を許可するサブネット</span>
+    <span class="n">subnets</span>         <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;${aws_subnet.private_1a.id}&quot;</span><span class="p">,</span> <span class="s2">&quot;${aws_subnet.private_1c.id}&quot;</span><span class="p">,</span> <span class="s2">&quot;${aws_subnet.private_1d.id}&quot;</span><span class="o">]</span>
+    <span class="c1"># タスクに紐付けるセキュリティグループ</span>
+    <span class="n">security_groups</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;${aws_security_group.ecs.id}&quot;</span><span class="o">]</span>
+  <span class="p">}</span>
+
+  <span class="c1"># ECSタスクの起動後に紐付けるELBターゲットグループ</span>
+  <span class="n">load_balancer</span> <span class="o">=</span> <span class="o">[</span>
+    <span class="p">{</span>
+      <span class="n">target_group_arn</span> <span class="o">=</span> <span class="s2">&quot;${aws_lb_target_group.main.arn}&quot;</span>
+      <span class="n">container_name</span>   <span class="o">=</span> <span class="s2">&quot;nginx&quot;</span>
+      <span class="n">container_port</span>   <span class="o">=</span> <span class="s2">&quot;80&quot;</span>
+    <span class="p">},</span>
+  <span class="o">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>コードの適用を行います。</p>
+<div class="codehilite"><pre><span></span># terraform plan
+# terraform apply
+  :
+</pre></div>
+
+
+<p>ALBのWebコンソールに表示されているDNSへhttpでアクセスし、nginxが表示されれば成功です</p>
+<p><a href="https://ap-northeast-1.console.aws.amazon.com/ec2/v2/home?region=ap-northeast-1#LoadBalancer:">https://ap-northeast-1.console.aws.amazon.com/ec2/v2/home?region=ap-northeast-1#LoadBalancers</a></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../alb/" title="ALB" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前
+                </span>
+                ALB
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../https/" title="https化" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  次
+                </span>
+                https化
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.267712eb.js"></script>
+      
+        
+        
+          
+          <script src="../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../assets/custom.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1313 @@
+
+
+
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="クリップボードへコピー">
+      
+        <meta name="lang:clipboard.copied" content="コピーしました">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="何も見つかりませんでした">
+      
+        <meta name="lang:search.result.one" content="1件見つかりました">
+      
+        <meta name="lang:search.result.other" content="#件見つかりました">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-　、。，．]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.2">
+    
+    
+      
+        <title>VPC - Terraformで構築するAWS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#546e7a">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../assets/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue-grey" data-md-color-accent="blue-grey">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#_1" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Terraformで構築するAWS" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Terraformで構築するAWS
+            </span>
+            <span class="md-header-nav__topic">
+              VPC
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            検索キーワードを入力してください
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="Terraformで構築するAWS" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Terraformで構築するAWS
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      はじめてのTerraform
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        はじめてのTerraform
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../first/about/" title="Terraformとは" class="md-nav__link">
+      Terraformとは
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../first/preparation/" title="環境を準備する" class="md-nav__link">
+      環境を準備する
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../first/handson/" title="とりあえず触ってみる" class="md-nav__link">
+      とりあえず触ってみる
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      ハンズオン
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        ハンズオン
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../about/" title="概要" class="md-nav__link">
+      概要
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        VPC
+      </label>
+    
+    <a href="./" title="VPC" class="md-nav__link md-nav__link--active">
+      VPC
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">目次</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="この章の目標" class="md-nav__link">
+    この章の目標
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="準備" class="md-nav__link">
+    準備
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vpc" title="VPC" class="md-nav__link">
+    VPC
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subnet" title="Subnet" class="md-nav__link">
+    Subnet
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#internet-gateway" title="Internet Gateway" class="md-nav__link">
+    Internet Gateway
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nat-gateway" title="NAT Gateway" class="md-nav__link">
+    NAT Gateway
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#route-table" title="Route Table" class="md-nav__link">
+    Route Table
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../alb/" title="ALB" class="md-nav__link">
+      ALB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ecs/" title="ECS" class="md-nav__link">
+      ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../https/" title="https化" class="md-nav__link">
+      https化
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../syntax/" title="シンタックスの活用" class="md-nav__link">
+      シンタックスの活用
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      laravelを動かす
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        laravelを動かす
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/about/" title="概要" class="md-nav__link">
+      概要
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/docker-compose/" title="docker-composeの起動" class="md-nav__link">
+      docker-composeの起動
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/rds/" title="RDS" class="md-nav__link">
+      RDS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/ecr/" title="ECR" class="md-nav__link">
+      ECR
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/ecs/" title="ECS" class="md-nav__link">
+      ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/cleanup/" title="片付け" class="md-nav__link">
+      片付け
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../next-step/" title="Next Step" class="md-nav__link">
+      Next Step
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">目次</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="この章の目標" class="md-nav__link">
+    この章の目標
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="準備" class="md-nav__link">
+    準備
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vpc" title="VPC" class="md-nav__link">
+    VPC
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subnet" title="Subnet" class="md-nav__link">
+    Subnet
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#internet-gateway" title="Internet Gateway" class="md-nav__link">
+    Internet Gateway
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nat-gateway" title="NAT Gateway" class="md-nav__link">
+    NAT Gateway
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#route-table" title="Route Table" class="md-nav__link">
+    Route Table
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>VPC</h1>
+                
+                <h2 id="_1">この章の目標<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><img alt="network" src="../imgs/network.png" /></p>
+<p>この章では上記の図の通りのVPCリソースを構築します。<br />
+3つのAvailability Zone で設計したときのネットワークが目標です。</p>
+<p>Terraformで実際に記述していきましょう。</p>
+<h2 id="_2">準備<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>新しいTerminalを立ち上げ、以下のコマンドでこの章用のディレクトリを作成し、作成したディレクトリに移動してください。  </p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/Desktop/
+<span class="gp">$</span> mkdir terraform
+<span class="gp">$</span> <span class="nb">cd</span> terraform
+</pre></div>
+
+
+<p>Terraformを立ち上げているTerminalにもディレクトリが作成されていることを確認し、共有されたディレクトリに移動してください。</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> <span class="nb">cd</span> /terraform
+<span class="gp">#</span> ls
+<span class="go">handson     vpc-handson</span>
+<span class="gp">#</span> <span class="nb">cd</span> handson
+</pre></div>
+
+
+<p>プロバイダの定義を行います。今回もAWSを使用するので、"aws"と指定します。<br />
+以下のコードを <code>main.tf</code> の命名で <code>handson/</code> 配下に作成してください。</p>
+<div class="codehilite"><pre><span></span><span class="n">provider</span> <span class="s2">&quot;aws&quot;</span> <span class="p">{</span>
+  <span class="n">region</span> <span class="o">=</span> <span class="s2">&quot;ap-northeast-1&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>terraformの初期化を行います。</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform init
+
+<span class="go">Initializing provider plugins...</span>
+<span class="go">- Checking for available provider plugins on https://releases.hashicorp.com...</span>
+<span class="go">- Downloading plugin for provider &quot;aws&quot; (2.6.0)...</span>
+
+<span class="go">The following providers do not have any version constraints in configuration,</span>
+<span class="go">so the latest version was installed.</span>
+
+<span class="go">To prevent automatic upgrades to new major versions that may contain breaking</span>
+<span class="go">changes, it is recommended to add version = &quot;...&quot; constraints to the</span>
+<span class="go">corresponding provider blocks in configuration, with the constraint strings</span>
+<span class="go">suggested below.</span>
+
+<span class="go">* provider.aws: version = &quot;~&gt; 2.6&quot;</span>
+
+<span class="go">Terraform has been successfully initialized!</span>
+
+<span class="go">You may now begin working with Terraform. Try running &quot;terraform plan&quot; to see</span>
+<span class="go">any changes that are required for your infrastructure. All Terraform commands</span>
+<span class="go">should now work.</span>
+
+<span class="go">If you ever set or change modules or backend configuration for Terraform,</span>
+<span class="go">rerun this command to reinitialize your working directory. If you forget, other</span>
+<span class="go">commands will detect it and remind you to do so if necessary.</span>
+</pre></div>
+
+
+<h2 id="vpc">VPC<a class="headerlink" href="#vpc" title="Permanent link">&para;</a></h2>
+<p><img alt="vpc" src="../imgs/network-vpc.png" />
+まずは今回使用するVPCの作成を行います。</p>
+<p>以下のコードを <code>main.tf</code> へ追記してください</p>
+<div class="codehilite"><pre><span></span><span class="c1"># VPC</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/vpc.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_vpc&quot;</span> <span class="s2">&quot;main&quot;</span> <span class="p">{</span>
+  <span class="n">cidr_block</span> <span class="o">=</span> <span class="s2">&quot;10.0.0.0/16&quot;</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>コードの追記が追えたらplanを行ってから適用を行います。</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform plan
+<span class="go">terraform plan</span>
+<span class="go">Refreshing Terraform state in-memory prior to plan...</span>
+<span class="go">The refreshed state will be used to calculate this plan, but will not be</span>
+<span class="go">persisted to local or remote state storage.</span>
+
+
+<span class="go">------------------------------------------------------------------------</span>
+
+<span class="go">An execution plan has been generated and is shown below.</span>
+<span class="go">Resource actions are indicated with the following symbols:</span>
+<span class="go">  + create</span>
+
+<span class="go">Terraform will perform the following actions:</span>
+
+<span class="go">  + aws_vpc.main</span>
+<span class="go">      id:                               &lt;computed&gt;</span>
+<span class="go">      arn:                              &lt;computed&gt;</span>
+<span class="go">      assign_generated_ipv6_cidr_block: &quot;false&quot;</span>
+<span class="go">      cidr_block:                       &quot;10.0.0.0/16&quot;</span>
+<span class="go">      default_network_acl_id:           &lt;computed&gt;</span>
+<span class="go">      default_route_table_id:           &lt;computed&gt;</span>
+<span class="go">      default_security_group_id:        &lt;computed&gt;</span>
+<span class="go">      dhcp_options_id:                  &lt;computed&gt;</span>
+<span class="go">      enable_classiclink:               &lt;computed&gt;</span>
+<span class="go">      enable_classiclink_dns_support:   &lt;computed&gt;</span>
+<span class="go">      enable_dns_hostnames:             &lt;computed&gt;</span>
+<span class="go">      enable_dns_support:               &quot;true&quot;</span>
+<span class="go">      instance_tenancy:                 &quot;default&quot;</span>
+<span class="go">      ipv6_association_id:              &lt;computed&gt;</span>
+<span class="go">      ipv6_cidr_block:                  &lt;computed&gt;</span>
+<span class="go">      main_route_table_id:              &lt;computed&gt;</span>
+<span class="go">      owner_id:                         &lt;computed&gt;</span>
+<span class="go">      tags.%:                           &quot;1&quot;</span>
+<span class="go">      tags.Name:                        &quot;handson&quot;</span>
+
+
+<span class="go">Plan: 1 to add, 0 to change, 0 to destroy.</span>
+
+<span class="go">------------------------------------------------------------------------</span>
+
+<span class="go">Note: You didn&#39;t specify an &quot;-out&quot; parameter to save this plan, so Terraform</span>
+<span class="go">can&#39;t guarantee that exactly these actions will be performed if</span>
+<span class="go">&quot;terraform apply&quot; is subsequently run.</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform apply
+<span class="go">  :</span>
+</pre></div>
+
+
+<p>実際にVPCが作成されたかの確認をしましょう。</p>
+<p><img alt="vpc-list" src="../imgs/vpc-list.png" />
+<a href="https://ap-northeast-1.console.aws.amazon.com/vpc/home?region=ap-northeast-1#vpcs:sort=desc:VpcId">https://ap-northeast-1.console.aws.amazon.com/vpc/home?region=ap-northeast-1#vpcs:sort=desc:VpcId</a></p>
+<h2 id="subnet">Subnet<a class="headerlink" href="#subnet" title="Permanent link">&para;</a></h2>
+<p><img alt="subnet" src="../imgs/network-subnet.png" />
+次にサブネットを6つ作成します。<br />
+Public SubnetとPrivate Subnetの2種類と、ap-northeast-1リージョン(東京リージョン)に存在する3つのAZへ各種リソース(EC2やECSやRDSなど)を配置したいため、2*3で計6つのサブネットを作成します。</p>
+<p>まずは「"handson-public-1a"という命名でap-northeast-1aにCIDRが10.0.1.0/24のサブネット」を作成してみましょう</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Subnet</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/subnet.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_subnet&quot;</span> <span class="s2">&quot;public_1a&quot;</span> <span class="p">{</span>
+  <span class="c1"># 先程作成したVPCを参照し、そのVPC内にSubnetを立てる</span>
+  <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_vpc.main.id}&quot;</span>
+
+  <span class="c1"># Subnetを作成するAZ</span>
+  <span class="n">availability_zone</span> <span class="o">=</span> <span class="s2">&quot;ap-northeast-1a&quot;</span>
+
+  <span class="n">cidr_block</span>        <span class="o">=</span> <span class="s2">&quot;10.0.1.0/24&quot;</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-public-1a&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>planを実行し、Subnetが作成されることを確認しましょう。</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform plan
+<span class="go">Refreshing Terraform state in-memory prior to plan...</span>
+<span class="go">The refreshed state will be used to calculate this plan, but will not be</span>
+<span class="go">persisted to local or remote state storage.</span>
+
+<span class="go">aws_vpc.main: Refreshing state... (ID: vpc-0396987ded1c4fd87)</span>
+
+<span class="go">------------------------------------------------------------------------</span>
+
+<span class="go">An execution plan has been generated and is shown below.</span>
+<span class="go">Resource actions are indicated with the following symbols:</span>
+<span class="go">  + create</span>
+
+<span class="go">Terraform will perform the following actions:</span>
+
+<span class="go">  + aws_subnet.public_1a</span>
+<span class="go">      id:                              &lt;computed&gt;</span>
+<span class="go">      arn:                             &lt;computed&gt;</span>
+<span class="go">      assign_ipv6_address_on_creation: &quot;false&quot;</span>
+<span class="go">      availability_zone:               &quot;ap-northeast-1a&quot;</span>
+<span class="go">      availability_zone_id:            &lt;computed&gt;</span>
+<span class="go">      cidr_block:                      &quot;10.0.1.0/24&quot;</span>
+<span class="go">      ipv6_cidr_block:                 &lt;computed&gt;</span>
+<span class="go">      ipv6_cidr_block_association_id:  &lt;computed&gt;</span>
+<span class="go">      map_public_ip_on_launch:         &quot;false&quot;</span>
+<span class="go">      owner_id:                        &lt;computed&gt;</span>
+<span class="go">      tags.%:                          &quot;1&quot;</span>
+<span class="go">      tags.Name:                       &quot;handson-public-1a&quot;</span>
+<span class="go">      vpc_id:                          &quot;vpc-0396987ded1c4fd87&quot;</span>
+
+
+<span class="go">Plan: 1 to add, 0 to change, 0 to destroy.</span>
+
+<span class="go">------------------------------------------------------------------------</span>
+
+<span class="go">Note: You didn&#39;t specify an &quot;-out&quot; parameter to save this plan, so Terraform</span>
+<span class="go">can&#39;t guarantee that exactly these actions will be performed if</span>
+<span class="go">&quot;terraform apply&quot; is subsequently run.</span>
+</pre></div>
+
+
+<p>問題なければapplyを実行してSubnetの作成を行います。</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform apply
+<span class="go">  :</span>
+</pre></div>
+
+
+<p>以下のコードを追記して、残り5つのサブネットも作成します。<br />
+リソース名（e.g. "publi_1c", "public_1d"）と各種プロパティが少しずつことなるので注意してください。</p>
+<div class="codehilite"><pre><span></span><span class="n">resource</span> <span class="s2">&quot;aws_subnet&quot;</span> <span class="s2">&quot;public_1c&quot;</span> <span class="p">{</span>
+  <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_vpc.main.id}&quot;</span>
+
+  <span class="n">availability_zone</span> <span class="o">=</span> <span class="s2">&quot;ap-northeast-1c&quot;</span>
+
+  <span class="n">cidr_block</span>        <span class="o">=</span> <span class="s2">&quot;10.0.2.0/24&quot;</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-public-1c&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_subnet&quot;</span> <span class="s2">&quot;public_1d&quot;</span> <span class="p">{</span>
+  <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_vpc.main.id}&quot;</span>
+
+  <span class="n">availability_zone</span> <span class="o">=</span> <span class="s2">&quot;ap-northeast-1d&quot;</span>
+
+  <span class="n">cidr_block</span>        <span class="o">=</span> <span class="s2">&quot;10.0.3.0/24&quot;</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-public-1d&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># Private Subnets</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_subnet&quot;</span> <span class="s2">&quot;private_1a&quot;</span> <span class="p">{</span>
+  <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_vpc.main.id}&quot;</span>
+
+  <span class="n">availability_zone</span> <span class="o">=</span> <span class="s2">&quot;ap-northeast-1a&quot;</span>
+  <span class="n">cidr_block</span>        <span class="o">=</span> <span class="s2">&quot;10.0.10.0/24&quot;</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-private-1a&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_subnet&quot;</span> <span class="s2">&quot;private_1c&quot;</span> <span class="p">{</span>
+  <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_vpc.main.id}&quot;</span>
+
+  <span class="n">availability_zone</span> <span class="o">=</span> <span class="s2">&quot;ap-northeast-1c&quot;</span>
+  <span class="n">cidr_block</span>        <span class="o">=</span> <span class="s2">&quot;10.0.20.0/24&quot;</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-private-1c&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_subnet&quot;</span> <span class="s2">&quot;private_1d&quot;</span> <span class="p">{</span>
+  <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_vpc.main.id}&quot;</span>
+
+  <span class="n">availability_zone</span> <span class="o">=</span> <span class="s2">&quot;ap-northeast-1d&quot;</span>
+  <span class="n">cidr_block</span>        <span class="o">=</span> <span class="s2">&quot;10.0.30.0/24&quot;</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-private-1d&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>planを実行し、5つの新しいリソースが追加されることを確認しましょう。</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform plan
+<span class="go">  :</span>
+<span class="go">Plan: 5 to add, 0 to change, 0 to destroy.</span>
+</pre></div>
+
+
+<p>問題なければapplyを実行してSubnetの作成を行います。</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform apply
+</pre></div>
+
+
+<p>WebコンソールからSubnetが6つ作成されていることを確認しましょう。<br />
+サイドバーのVPCでフィルタリングで先程Terraformから作成した "handson" というVPCを選択すると分かりやすいです。</p>
+<p><img alt="subnets" src="../imgs/subnet-list.png" />
+<a href="https://ap-northeast-1.console.aws.amazon.com/vpc/home?region=ap-northeast-1#subnets:sort=tag:Name">https://ap-northeast-1.console.aws.amazon.com/vpc/home?region=ap-northeast-1#subnets:sort=tag:Name</a></p>
+<h2 id="internet-gateway">Internet Gateway<a class="headerlink" href="#internet-gateway" title="Permanent link">&para;</a></h2>
+<p><img alt="subnet" src="../imgs/network-igw.png" />
+VPCからインターネットへの出入り口となるInternet Gatewayを作成しましょう。<br />
+コンソール上から作成するとInternet Gateway とVPCは自動で紐付きませんが、Terraformの場合プロパティでVPCを指定することで自動的に紐づけてくれます。</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Internet Gateway</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/internet_gateway.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_internet_gateway&quot;</span> <span class="s2">&quot;main&quot;</span> <span class="p">{</span>
+  <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_vpc.main.id}&quot;</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>planを実行し、1つのリソースが追加されていることを確認します。</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform plan
+<span class="go">Plan: 1 to add, 0 to change, 0 to destroy.</span>
+</pre></div>
+
+
+<p>問題なければapplyを実行します。</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform apply
+</pre></div>
+
+
+<h2 id="nat-gateway">NAT Gateway<a class="headerlink" href="#nat-gateway" title="Permanent link">&para;</a></h2>
+<p><img alt="subnet" src="../imgs/network-natgw.png" />
+プライベートサブネットからインターネットへ通信するためにNAT Gatewayを使用します。<br />
+NAT Gatewayは1つのElastic IPが必要なのでその割り当てと、AZ毎に必要なので3つ作成します。</p>
+<p>まずはap-northeast-1a用のNAT Gatewayを1つ作成してみましょう</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Elasti IP</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/eip.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_eip&quot;</span> <span class="s2">&quot;nat_1a&quot;</span> <span class="p">{</span>
+  <span class="n">vpc</span> <span class="o">=</span> <span class="kp">true</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-natgw-1a&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># NAT Gateway</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/nat_gateway.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_nat_gateway&quot;</span> <span class="s2">&quot;nat_1a&quot;</span> <span class="p">{</span>
+  <span class="n">subnet_id</span>     <span class="o">=</span> <span class="s2">&quot;${aws_subnet.public_1a.id}&quot;</span> <span class="c1"># NAT Gatewayを配置するSubnetを指定</span>
+  <span class="n">allocation_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_eip.nat_1a.id}&quot;</span>       <span class="c1"># 紐付けるElasti IP</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-1a&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>planで変更確認を行います。</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform plan
+<span class="go">Refreshing Terraform state in-memory prior to plan...</span>
+<span class="go">The refreshed state will be used to calculate this plan, but will not be</span>
+<span class="go">persisted to local or remote state storage.</span>
+
+<span class="go">aws_vpc.main: Refreshing state... (ID: vpc-0396987ded1c4fd87)</span>
+<span class="go">aws_subnet.public_1d: Refreshing state... (ID: subnet-0f8eb38d6429200be)</span>
+<span class="go">aws_internet_gateway.main: Refreshing state... (ID: igw-0e46a72941683c00f)</span>
+<span class="go">aws_subnet.private_1a: Refreshing state... (ID: subnet-0b4e88abdc1cf586a)</span>
+<span class="go">aws_subnet.private_1d: Refreshing state... (ID: subnet-0910f1d541d1ad52d)</span>
+<span class="go">aws_subnet.private_1c: Refreshing state... (ID: subnet-01e1173f6b8ed56d5)</span>
+<span class="go">aws_subnet.public_1c: Refreshing state... (ID: subnet-0519598224db34049)</span>
+<span class="go">aws_subnet.public_1a: Refreshing state... (ID: subnet-08b90fd31e5d8dec4)</span>
+
+<span class="go">------------------------------------------------------------------------</span>
+
+<span class="go">An execution plan has been generated and is shown below.</span>
+<span class="go">Resource actions are indicated with the following symbols:</span>
+<span class="go">  + create</span>
+
+<span class="go">Terraform will perform the following actions:</span>
+
+<span class="go">  + aws_eip.nat_1a</span>
+<span class="go">      id:                   &lt;computed&gt;</span>
+<span class="go">      allocation_id:        &lt;computed&gt;</span>
+<span class="go">      association_id:       &lt;computed&gt;</span>
+<span class="go">      domain:               &lt;computed&gt;</span>
+<span class="go">      instance:             &lt;computed&gt;</span>
+<span class="go">      network_interface:    &lt;computed&gt;</span>
+<span class="go">      private_dns:          &lt;computed&gt;</span>
+<span class="go">      private_ip:           &lt;computed&gt;</span>
+<span class="go">      public_dns:           &lt;computed&gt;</span>
+<span class="go">      public_ip:            &lt;computed&gt;</span>
+<span class="go">      public_ipv4_pool:     &lt;computed&gt;</span>
+<span class="go">      tags.%:               &quot;1&quot;</span>
+<span class="go">      tags.Name:            &quot;handson-natgw-1a&quot;</span>
+<span class="go">      vpc:                  &quot;true&quot;</span>
+
+<span class="go">  + aws_nat_gateway.nat_1a</span>
+<span class="go">      id:                   &lt;computed&gt;</span>
+<span class="go">      allocation_id:        &quot;${aws_eip.nat_1a.id}&quot;</span>
+<span class="go">      network_interface_id: &lt;computed&gt;</span>
+<span class="go">      private_ip:           &lt;computed&gt;</span>
+<span class="go">      public_ip:            &lt;computed&gt;</span>
+<span class="go">      subnet_id:            &quot;subnet-08b90fd31e5d8dec4&quot;</span>
+
+
+<span class="go">Plan: 2 to add, 0 to change, 0 to destroy.</span>
+
+<span class="go">------------------------------------------------------------------------</span>
+
+<span class="go">Note: You didn&#39;t specify an &quot;-out&quot; parameter to save this plan, so Terraform</span>
+<span class="go">can&#39;t guarantee that exactly these actions will be performed if</span>
+<span class="go">&quot;terraform apply&quot; is subsequently run.</span>
+</pre></div>
+
+
+<p>Elastic IP とNAT Gateway の2つが作成されることが確認できました。</p>
+<p>applyを実行します。</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform apply
+</pre></div>
+
+
+<p>残り2つのNAT Gatewayも作成して適用しましょう</p>
+<div class="codehilite"><pre><span></span><span class="n">resource</span> <span class="s2">&quot;aws_eip&quot;</span> <span class="s2">&quot;nat_1c&quot;</span> <span class="p">{</span>
+  <span class="n">vpc</span> <span class="o">=</span> <span class="kp">true</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-natgw-1c&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_nat_gateway&quot;</span> <span class="s2">&quot;nat_1c&quot;</span> <span class="p">{</span>
+  <span class="n">subnet_id</span>     <span class="o">=</span> <span class="s2">&quot;${aws_subnet.public_1c.id}&quot;</span>
+  <span class="n">allocation_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_eip.nat_1c.id}&quot;</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-1c&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_eip&quot;</span> <span class="s2">&quot;nat_1d&quot;</span> <span class="p">{</span>
+  <span class="n">vpc</span> <span class="o">=</span> <span class="kp">true</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-natgw-1d&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_nat_gateway&quot;</span> <span class="s2">&quot;nat_1d&quot;</span> <span class="p">{</span>
+  <span class="n">subnet_id</span>     <span class="o">=</span> <span class="s2">&quot;${aws_subnet.public_1d.id}&quot;</span>
+  <span class="n">allocation_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_eip.nat_1d.id}&quot;</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-1d&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform plan
+<span class="go">  :</span>
+<span class="go">Plan: 6 to add, 0 to change, 0 to destroy.</span>
+<span class="go">  :</span>
+<span class="gp">#</span> terraform apply
+<span class="go">  :</span>
+</pre></div>
+
+
+<h2 id="route-table">Route Table<a class="headerlink" href="#route-table" title="Permanent link">&para;</a></h2>
+<p>最後に、トラフィックを疎通させるための経路設定を行います。<br />
+Internet Gatewayを使用してインターネットへ疎通するためのRoute Table/Routes と NAT Gatewayを経由してインターネットへ疎通するためのRoute Table/Routes を設定します。  </p>
+<div class="admonition note">
+<p class="admonition-title">Subnetの呼び分け</p>
+<p>Internet Gatewayと直接的な経路が存在するSubnetを"Public Subnet"と呼び、<br />
+インターネットへの経路が存在しない・NAT Gatewayを使用してインターネットへ接続しているSubnetを"Private Subnet" と呼びます</p>
+</div>
+<p><img alt="routes" src="../imgs/network-routes-public.png" /></p>
+<p>まずはInternet GatewayとSubnetの経路を作成しましょう。<br />
+少し多いので解説すると、作成するのは以下の3種類のリソースです。</p>
+<ol>
+<li>"aws_route_table"<ul>
+<li>経路情報の格納</li>
+</ul>
+</li>
+<li>"aws_route"<ul>
+<li>Route Tableへ経路情報を追加</li>
+<li>インターネット(0.0.0.0/0)へ接続する際はInternet Gatewayを使用するように設定する</li>
+</ul>
+</li>
+<li>"aws_route_table_association"<ul>
+<li>Route TableとSubnetの紐づけ</li>
+</ul>
+</li>
+</ol>
+<div class="codehilite"><pre><span></span><span class="c1"># Route Table</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/route_table.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_route_table&quot;</span> <span class="s2">&quot;public&quot;</span> <span class="p">{</span>
+  <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_vpc.main.id}&quot;</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-public&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># Route</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/route.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_route&quot;</span> <span class="s2">&quot;public&quot;</span> <span class="p">{</span>
+  <span class="n">destination_cidr_block</span> <span class="o">=</span> <span class="s2">&quot;0.0.0.0/0&quot;</span>
+  <span class="n">route_table_id</span>         <span class="o">=</span> <span class="s2">&quot;${aws_route_table.public.id}&quot;</span>
+  <span class="n">gateway_id</span>             <span class="o">=</span> <span class="s2">&quot;${aws_internet_gateway.main.id}&quot;</span>
+<span class="p">}</span>
+
+<span class="c1"># Association</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/route_table_association.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_route_table_association&quot;</span> <span class="s2">&quot;public_1a&quot;</span> <span class="p">{</span>
+  <span class="n">subnet_id</span>      <span class="o">=</span> <span class="s2">&quot;${aws_subnet.public_1a.id}&quot;</span>
+  <span class="n">route_table_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_route_table.public.id}&quot;</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_route_table_association&quot;</span> <span class="s2">&quot;public_1c&quot;</span> <span class="p">{</span>
+  <span class="n">subnet_id</span>      <span class="o">=</span> <span class="s2">&quot;${aws_subnet.public_1c.id}&quot;</span>
+  <span class="n">route_table_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_route_table.public.id}&quot;</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_route_table_association&quot;</span> <span class="s2">&quot;public_1d&quot;</span> <span class="p">{</span>
+  <span class="n">subnet_id</span>      <span class="o">=</span> <span class="s2">&quot;${aws_subnet.public_1d.id}&quot;</span>
+  <span class="n">route_table_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_route_table.public.id}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform plan
+<span class="go">  :</span>
+<span class="go">Plan: 5 to add, 0 to change, 0 to destroy.</span>
+<span class="go">  :</span>
+<span class="gp">#</span> terraform apply
+<span class="go">  :</span>
+</pre></div>
+
+
+<p><img alt="routes" src="../imgs/network-routes-private.png" /></p>
+<p>NAT GatewayとSubnetの経路を作成しましょう。<br />
+Internet Gateway との違いとしては各AZにNAT Gateway が必要になる点です。</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Route Table (Private)</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/route_table.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_route_table&quot;</span> <span class="s2">&quot;private_1a&quot;</span> <span class="p">{</span>
+  <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_vpc.main.id}&quot;</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-private-1a&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_route_table&quot;</span> <span class="s2">&quot;private_1c&quot;</span> <span class="p">{</span>
+  <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_vpc.main.id}&quot;</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-private-1c&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_route_table&quot;</span> <span class="s2">&quot;private_1d&quot;</span> <span class="p">{</span>
+  <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_vpc.main.id}&quot;</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;handson-private-1d&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># Route (Private)</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/route.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_route&quot;</span> <span class="s2">&quot;private_1a&quot;</span> <span class="p">{</span>
+  <span class="n">destination_cidr_block</span> <span class="o">=</span> <span class="s2">&quot;0.0.0.0/0&quot;</span>
+  <span class="n">route_table_id</span>         <span class="o">=</span> <span class="s2">&quot;${aws_route_table.private_1a.id}&quot;</span>
+  <span class="n">nat_gateway_id</span>         <span class="o">=</span> <span class="s2">&quot;${aws_nat_gateway.nat_1a.id}&quot;</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_route&quot;</span> <span class="s2">&quot;private_1c&quot;</span> <span class="p">{</span>
+  <span class="n">destination_cidr_block</span> <span class="o">=</span> <span class="s2">&quot;0.0.0.0/0&quot;</span>
+  <span class="n">route_table_id</span>         <span class="o">=</span> <span class="s2">&quot;${aws_route_table.private_1c.id}&quot;</span>
+  <span class="n">nat_gateway_id</span>         <span class="o">=</span> <span class="s2">&quot;${aws_nat_gateway.nat_1c.id}&quot;</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_route&quot;</span> <span class="s2">&quot;private_1d&quot;</span> <span class="p">{</span>
+  <span class="n">destination_cidr_block</span> <span class="o">=</span> <span class="s2">&quot;0.0.0.0/0&quot;</span>
+  <span class="n">route_table_id</span>         <span class="o">=</span> <span class="s2">&quot;${aws_route_table.private_1d.id}&quot;</span>
+  <span class="n">nat_gateway_id</span>         <span class="o">=</span> <span class="s2">&quot;${aws_nat_gateway.nat_1d.id}&quot;</span>
+<span class="p">}</span>
+
+<span class="c1"># Association (Private)</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/route_table_association.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_route_table_association&quot;</span> <span class="s2">&quot;private_1a&quot;</span> <span class="p">{</span>
+  <span class="n">subnet_id</span>      <span class="o">=</span> <span class="s2">&quot;${aws_subnet.private_1a.id}&quot;</span>
+  <span class="n">route_table_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_route_table.private_1a.id}&quot;</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_route_table_association&quot;</span> <span class="s2">&quot;private_1c&quot;</span> <span class="p">{</span>
+  <span class="n">subnet_id</span>      <span class="o">=</span> <span class="s2">&quot;${aws_subnet.private_1c.id}&quot;</span>
+  <span class="n">route_table_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_route_table.private_1c.id}&quot;</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_route_table_association&quot;</span> <span class="s2">&quot;private_1d&quot;</span> <span class="p">{</span>
+  <span class="n">subnet_id</span>      <span class="o">=</span> <span class="s2">&quot;${aws_subnet.private_1d.id}&quot;</span>
+  <span class="n">route_table_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_route_table.private_1d.id}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="gp">#</span> terraform plan
+<span class="go">  :</span>
+<span class="go">Plan: 9 to add, 0 to change, 0 to destroy.</span>
+<span class="go">  :</span>
+<span class="gp">#</span> terraform apply
+<span class="go">  :</span>
+</pre></div>
+
+
+<p>経路設定が行えているかWebコンソール上から確認してみましょう。  </p>
+<p>確認ポイント</p>
+<blockquote>
+<ol>
+<li>"handson-" という名前からはじまるRoute Tableが4つあるか</li>
+<li>"handson-public" に3つSubnetが登録されているか</li>
+<li>"handson-public" に登録されているSubnetはPublic Subnetの命名になっているか</li>
+<li>"handson-public" の0.0.0.0への経路はInternet Gatewayを使用しているか</li>
+<li>"handson-private-*" は3つ存在し、それぞれ1つずつSubnetを持っているか</li>
+<li>"handson-private-*" は0.0.0.0への経路はNAT Gatewayを使用しているか</li>
+</ol>
+</blockquote>
+<p><img alt="rtb-list" src="../imgs/rtb-list.png" />
+<a href="https://ap-northeast-1.console.aws.amazon.com/vpc/home?region=ap-northeast-1#RouteTables:sort=routeTableId">https://ap-northeast-1.console.aws.amazon.com/vpc/home?region=ap-northeast-1#RouteTables:sort=routeTableId</a></p>
+<p>ここまでで基礎となるネットワークリソースの作成は完了です！  </p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../about/" title="概要" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前
+                </span>
+                概要
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../alb/" title="ALB" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  次
+                </span>
+                ALB
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.267712eb.js"></script>
+      
+        
+        
+          
+          <script src="../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../assets/custom.js"></script>
+      
+    
+  </body>
+</html>

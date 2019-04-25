@@ -1,0 +1,826 @@
+
+
+
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="クリップボードへコピー">
+      
+        <meta name="lang:clipboard.copied" content="コピーしました">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="何も見つかりませんでした">
+      
+        <meta name="lang:search.result.one" content="1件見つかりました">
+      
+        <meta name="lang:search.result.other" content="#件見つかりました">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-　、。，．]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.2">
+    
+    
+      
+        <title>https化 - Terraformで構築するAWS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#546e7a">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../assets/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue-grey" data-md-color-accent="blue-grey">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#_1" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Terraformで構築するAWS" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Terraformで構築するAWS
+            </span>
+            <span class="md-header-nav__topic">
+              https化
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            検索キーワードを入力してください
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="Terraformで構築するAWS" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Terraformで構築するAWS
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      はじめてのTerraform
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        はじめてのTerraform
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../first/about/" title="Terraformとは" class="md-nav__link">
+      Terraformとは
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../first/preparation/" title="環境を準備する" class="md-nav__link">
+      環境を準備する
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../first/handson/" title="とりあえず触ってみる" class="md-nav__link">
+      とりあえず触ってみる
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      ハンズオン
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        ハンズオン
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../about/" title="概要" class="md-nav__link">
+      概要
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../vpc/" title="VPC" class="md-nav__link">
+      VPC
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../alb/" title="ALB" class="md-nav__link">
+      ALB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ecs/" title="ECS" class="md-nav__link">
+      ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        https化
+      </label>
+    
+    <a href="./" title="https化" class="md-nav__link md-nav__link--active">
+      https化
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">目次</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="この章の目標" class="md-nav__link">
+    この章の目標
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="コードの記述" class="md-nav__link">
+    コードの記述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="片付け" class="md-nav__link">
+    片付け
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../syntax/" title="シンタックスの活用" class="md-nav__link">
+      シンタックスの活用
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      laravelを動かす
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        laravelを動かす
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/about/" title="概要" class="md-nav__link">
+      概要
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/docker-compose/" title="docker-composeの起動" class="md-nav__link">
+      docker-composeの起動
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/rds/" title="RDS" class="md-nav__link">
+      RDS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/ecr/" title="ECR" class="md-nav__link">
+      ECR
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/ecs/" title="ECS" class="md-nav__link">
+      ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../laravel/cleanup/" title="片付け" class="md-nav__link">
+      片付け
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../next-step/" title="Next Step" class="md-nav__link">
+      Next Step
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">目次</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="この章の目標" class="md-nav__link">
+    この章の目標
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="コードの記述" class="md-nav__link">
+    コードの記述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="片付け" class="md-nav__link">
+    片付け
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>https化</h1>
+                
+                <h2 id="_1">この章の目標<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><img alt="https" src="../imgs/https.png" /></p>
+<p>この章ではALBとドメインの紐付けとhttpsの対応を行います。<br />
+そのため、ドメインが必要になります。</p>
+<p>作成するリソースは以下の6つです。</p>
+<ol>
+<li>AWS Certificate Manager<ul>
+<li>TLS証明書の発行</li>
+</ul>
+</li>
+<li>Route 53 CNAMEレコード<ul>
+<li>TLS証明書発行時にドメインの所有を証明するために作成</li>
+</ul>
+</li>
+<li>AWS Certificate Manager Validation<ul>
+<li>TLS証明書発行時にドメインの所有を証明するために作成<ul>
+<li>ACMでドメインを使用して所有証明をする場合は基本的にCNAMEレコードとワンセットで定義する。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Route 53 Aレコード<ul>
+<li>ALBとドメインの紐付け用レコード</li>
+</ul>
+</li>
+<li>セキュリティグループルール<ul>
+<li>作成済みのALB用セキュリティグループへhttpsも受け付けるようルールを追加する</li>
+</ul>
+</li>
+<li>ALB httpリスナー<ul>
+<li>httpリクエスト受けつけ、そのリクエストをhttpsへリダイレクトさせるルール</li>
+</ul>
+</li>
+<li>ALB httpsリスナー<ul>
+<li>httpsリクエストを受けつけ、そのリクエストを作成済みのECS(nginx)へ流すルール</li>
+</ul>
+</li>
+</ol>
+<h2 id="_2">コードの記述<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>今回は新しく <code>variable</code> と <code>data</code> の2つのブロックを使用します。</p>
+<p><code>variable</code> は変数の定義に使用します。<br />
+複数のブロックで共通して使用する値や、環境(ステージング・本番)毎に依存する値を定義します。</p>
+<p><code>data</code> は既存のリソースを参照します。<br />
+基本的に <code>resource</code> ではTerraformで管理されていない場合新規に作成します。しかし、既存のリソースを使用したいケースやTerraformで管理したくないリソースは往々にして存在します。そういったリソースの情報をTerraformで管理せず参照するために使用します。</p>
+<p>実際にコードを定義していきます。<br />
+<code>variable</code> はRoute53で管理しているドメイン名を入力し、 <code>data</code> でそのドメインを参照してACMの証明書発行やALBとドメインの紐付けに使用します。</p>
+<div class="codehilite"><pre><span></span><span class="n">variable</span> <span class="s2">&quot;domain&quot;</span> <span class="p">{</span>
+  <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Route 53 で管理しているドメイン名&quot;</span>
+  <span class="n">type</span>        <span class="o">=</span> <span class="s2">&quot;string&quot;</span>
+
+  <span class="c1">#FIXME:</span>
+  <span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;&lt;YOUR DOMAIN NAME&gt;&quot;</span>
+<span class="p">}</span>
+
+<span class="c1"># Route53 Hosted Zone</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/d/route53_zone.html</span>
+<span class="n">data</span> <span class="s2">&quot;aws_route53_zone&quot;</span> <span class="s2">&quot;main&quot;</span> <span class="p">{</span>
+  <span class="nb">name</span>         <span class="o">=</span> <span class="s2">&quot;${var.domain}&quot;</span>
+  <span class="n">private_zone</span> <span class="o">=</span> <span class="kp">false</span>
+<span class="p">}</span>
+
+<span class="c1"># ACM</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/acm_certificate.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_acm_certificate&quot;</span> <span class="s2">&quot;main&quot;</span> <span class="p">{</span>
+  <span class="n">domain_name</span> <span class="o">=</span> <span class="s2">&quot;${var.domain}&quot;</span>
+
+  <span class="n">validation_method</span> <span class="o">=</span> <span class="s2">&quot;DNS&quot;</span>
+
+  <span class="n">lifecycle</span> <span class="p">{</span>
+    <span class="n">create_before_destroy</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># Route53 record</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/route53_record.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_route53_record&quot;</span> <span class="s2">&quot;validation&quot;</span> <span class="p">{</span>
+  <span class="n">depends_on</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;aws_acm_certificate.main&quot;</span><span class="o">]</span>
+
+  <span class="n">zone_id</span> <span class="o">=</span> <span class="s2">&quot;${data.aws_route53_zone.main.id}&quot;</span>
+
+  <span class="n">ttl</span> <span class="o">=</span> <span class="mi">60</span>
+
+  <span class="nb">name</span>    <span class="o">=</span> <span class="s2">&quot;${aws_acm_certificate.main.domain_validation_options.0.resource_record_name}&quot;</span>
+  <span class="n">type</span>    <span class="o">=</span> <span class="s2">&quot;${aws_acm_certificate.main.domain_validation_options.0.resource_record_type}&quot;</span>
+  <span class="n">records</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;${aws_acm_certificate.main.domain_validation_options.0.resource_record_value}&quot;</span><span class="o">]</span>
+<span class="p">}</span>
+
+<span class="c1"># ACM Validate</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/acm_certificate_validation.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_acm_certificate_validation&quot;</span> <span class="s2">&quot;main&quot;</span> <span class="p">{</span>
+  <span class="n">certificate_arn</span> <span class="o">=</span> <span class="s2">&quot;${aws_acm_certificate.main.arn}&quot;</span>
+
+  <span class="n">validation_record_fqdns</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;${aws_route53_record.validation.0.fqdn}&quot;</span><span class="o">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Route53 record</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/route53_record.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_route53_record&quot;</span> <span class="s2">&quot;main&quot;</span> <span class="p">{</span>
+  <span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;A&quot;</span>
+
+  <span class="nb">name</span>    <span class="o">=</span> <span class="s2">&quot;${var.domain}&quot;</span>
+  <span class="n">zone_id</span> <span class="o">=</span> <span class="s2">&quot;${data.aws_route53_zone.main.id}&quot;</span>
+
+  <span class="k">alias</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nb">name</span>                   <span class="o">=</span> <span class="s2">&quot;${aws_lb.main.dns_name}&quot;</span>
+    <span class="n">zone_id</span>                <span class="o">=</span> <span class="s2">&quot;${aws_lb.main.zone_id}&quot;</span>
+    <span class="n">evaluate_target_health</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># ALB Listener</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/lb_listener.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_lb_listener&quot;</span> <span class="s2">&quot;https&quot;</span> <span class="p">{</span>
+  <span class="n">load_balancer_arn</span> <span class="o">=</span> <span class="s2">&quot;${aws_lb.main.arn}&quot;</span>
+
+  <span class="n">certificate_arn</span> <span class="o">=</span> <span class="s2">&quot;${aws_acm_certificate.main.arn}&quot;</span>
+
+  <span class="n">port</span>     <span class="o">=</span> <span class="s2">&quot;443&quot;</span>
+  <span class="n">protocol</span> <span class="o">=</span> <span class="s2">&quot;HTTPS&quot;</span>
+
+  <span class="n">default_action</span> <span class="p">{</span>
+    <span class="n">type</span>             <span class="o">=</span> <span class="s2">&quot;forward&quot;</span>
+    <span class="n">target_group_arn</span> <span class="o">=</span> <span class="s2">&quot;${aws_lb_target_group.main.id}&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># ALB Listener Rule</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/lb_listener_rule.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_lb_listener_rule&quot;</span> <span class="s2">&quot;http_to_https&quot;</span> <span class="p">{</span>
+  <span class="n">listener_arn</span> <span class="o">=</span> <span class="s2">&quot;${aws_lb_listener.main.arn}&quot;</span>
+
+  <span class="n">priority</span> <span class="o">=</span> <span class="mi">99</span>
+
+  <span class="n">action</span> <span class="p">{</span>
+    <span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;redirect&quot;</span>
+
+    <span class="n">redirect</span> <span class="p">{</span>
+      <span class="n">port</span>        <span class="o">=</span> <span class="s2">&quot;443&quot;</span>
+      <span class="n">protocol</span>    <span class="o">=</span> <span class="s2">&quot;HTTPS&quot;</span>
+      <span class="n">status_code</span> <span class="o">=</span> <span class="s2">&quot;HTTP_301&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">condition</span> <span class="p">{</span>
+    <span class="n">field</span>  <span class="o">=</span> <span class="s2">&quot;host-header&quot;</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;${var.domain}&quot;</span><span class="o">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># Security Group Rule</span>
+<span class="c1"># https://www.terraform.io/docs/providers/aws/r/security_group_rule.html</span>
+<span class="n">resource</span> <span class="s2">&quot;aws_security_group_rule&quot;</span> <span class="s2">&quot;alb_https&quot;</span> <span class="p">{</span>
+  <span class="n">security_group_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_security_group.alb.id}&quot;</span>
+
+  <span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;ingress&quot;</span>
+
+  <span class="n">from_port</span> <span class="o">=</span> <span class="mi">443</span>
+  <span class="n">to_port</span>   <span class="o">=</span> <span class="mi">443</span>
+  <span class="n">protocol</span>  <span class="o">=</span> <span class="s2">&quot;tcp&quot;</span>
+
+  <span class="n">cidr_blocks</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="o">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>コードの適用を行います。</p>
+<div class="codehilite"><pre><span></span># terraform plan
+# terraform apply
+  :
+</pre></div>
+
+
+<p>実際に登録したドメインへhttpでアクセスし、httpsへリダイレクトされ、nginxが表示されれば成功です。</p>
+<h2 id="_3">片付け<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>満足したらリソースを削除しましょう。</p>
+<div class="codehilite"><pre><span></span># terraform destroy
+</pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../ecs/" title="ECS" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前
+                </span>
+                ECS
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../syntax/" title="シンタックスの活用" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  次
+                </span>
+                シンタックスの活用
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.267712eb.js"></script>
+      
+        
+        
+          
+          <script src="../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../assets/custom.js"></script>
+      
+    
+  </body>
+</html>

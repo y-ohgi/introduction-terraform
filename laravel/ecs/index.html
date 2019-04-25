@@ -1,0 +1,1012 @@
+
+
+
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="クリップボードへコピー">
+      
+        <meta name="lang:clipboard.copied" content="コピーしました">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="何も見つかりませんでした">
+      
+        <meta name="lang:search.result.one" content="1件見つかりました">
+      
+        <meta name="lang:search.result.other" content="#件見つかりました">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-　、。，．]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.2">
+    
+    
+      
+        <title>ECS - Terraformで構築するAWS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#546e7a">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../assets/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue-grey" data-md-color-accent="blue-grey">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#_1" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Terraformで構築するAWS" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Terraformで構築するAWS
+            </span>
+            <span class="md-header-nav__topic">
+              ECS
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            検索キーワードを入力してください
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="Terraformで構築するAWS" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Terraformで構築するAWS
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      はじめてのTerraform
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        はじめてのTerraform
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../first/about/" title="Terraformとは" class="md-nav__link">
+      Terraformとは
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../first/preparation/" title="環境を準備する" class="md-nav__link">
+      環境を準備する
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../first/handson/" title="とりあえず触ってみる" class="md-nav__link">
+      とりあえず触ってみる
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      ハンズオン
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        ハンズオン
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../handson/about/" title="概要" class="md-nav__link">
+      概要
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../handson/vpc/" title="VPC" class="md-nav__link">
+      VPC
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../handson/alb/" title="ALB" class="md-nav__link">
+      ALB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../handson/ecs/" title="ECS" class="md-nav__link">
+      ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../handson/https/" title="https化" class="md-nav__link">
+      https化
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../handson/syntax/" title="シンタックスの活用" class="md-nav__link">
+      シンタックスの活用
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      laravelを動かす
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        laravelを動かす
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../about/" title="概要" class="md-nav__link">
+      概要
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../docker-compose/" title="docker-composeの起動" class="md-nav__link">
+      docker-composeの起動
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../rds/" title="RDS" class="md-nav__link">
+      RDS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ecr/" title="ECR" class="md-nav__link">
+      ECR
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        ECS
+      </label>
+    
+    <a href="./" title="ECS" class="md-nav__link md-nav__link--active">
+      ECS
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">目次</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="この章の目標" class="md-nav__link">
+    この章の目標
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="リソース" class="md-nav__link">
+    リソース
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="コード" class="md-nav__link">
+    コード
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="動作確認" class="md-nav__link">
+    動作確認
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dbmigration" title="DBへのmigration" class="md-nav__link">
+    DBへのmigration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="動作確認" class="md-nav__link">
+    動作確認
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cleanup/" title="片付け" class="md-nav__link">
+      片付け
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../next-step/" title="Next Step" class="md-nav__link">
+      Next Step
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">目次</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="この章の目標" class="md-nav__link">
+    この章の目標
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="リソース" class="md-nav__link">
+    リソース
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="コード" class="md-nav__link">
+    コード
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="動作確認" class="md-nav__link">
+    動作確認
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dbmigration" title="DBへのmigration" class="md-nav__link">
+    DBへのmigration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="動作確認" class="md-nav__link">
+    動作確認
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>ECS</h1>
+                
+                <h2 id="_1">この章の目標<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><img alt="laravel" src="../imgs/ecs-laravel.png" /></p>
+<p>この章ではLaravelの起動を目標にします</p>
+<h2 id="_2">リソース<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>ECS Service</li>
+<li>Task Definition</li>
+<li>IAM Role</li>
+<li>Cloud Watch Log Group</li>
+<li>Security Group</li>
+</ul>
+<h2 id="_3">コード<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>長くなりますが、コードを記載します。</p>
+<p><code>./main.tf</code></p>
+<div class="codehilite"><pre><span></span><span class="n">module</span> <span class="s2">&quot;ecs_laravel&quot;</span> <span class="p">{</span>
+  <span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;./ecs_laravel&quot;</span>
+
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">&quot;${var.name}&quot;</span>
+
+  <span class="n">cluster_name</span>       <span class="o">=</span> <span class="s2">&quot;${module.ecs_cluster.cluster_name}&quot;</span>
+  <span class="n">vpc_id</span>             <span class="o">=</span> <span class="s2">&quot;${module.network.vpc_id}&quot;</span>
+  <span class="n">subnet_ids</span>         <span class="o">=</span> <span class="s2">&quot;${module.network.private_subnet_ids}&quot;</span>
+  <span class="n">https_listener_arn</span> <span class="o">=</span> <span class="s2">&quot;${module.elb.https_listener_arn}&quot;</span>
+
+  <span class="n">db_host</span> <span class="o">=</span> <span class="s2">&quot;${module.rds.endpoint}&quot;</span>
+
+  <span class="n">db_username</span> <span class="o">=</span> <span class="s2">&quot;myusername&quot;</span>
+  <span class="n">db_password</span> <span class="o">=</span> <span class="s2">&quot;mypassword&quot;</span>
+  <span class="n">db_database</span> <span class="o">=</span> <span class="s2">&quot;mydatabase&quot;</span>
+
+  <span class="n">app_key</span> <span class="o">=</span> <span class="s2">&quot;base64:p5Fu8gRUOuPUXzY3VcxpnYsUR9f2h8nTSm5JlYkzPTM=&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><code>./ecs_laravel/main.tf</code></p>
+<div class="codehilite"><pre><span></span><span class="n">variable</span> <span class="s2">&quot;name&quot;</span> <span class="p">{</span>
+  <span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;string&quot;</span>
+<span class="p">}</span>
+
+<span class="n">variable</span> <span class="s2">&quot;vpc_id&quot;</span> <span class="p">{</span>
+  <span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;string&quot;</span>
+<span class="p">}</span>
+
+<span class="n">variable</span> <span class="s2">&quot;https_listener_arn&quot;</span> <span class="p">{</span>
+  <span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;string&quot;</span>
+<span class="p">}</span>
+
+<span class="n">variable</span> <span class="s2">&quot;cluster_name&quot;</span> <span class="p">{</span>
+  <span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;string&quot;</span>
+<span class="p">}</span>
+
+<span class="n">variable</span> <span class="s2">&quot;subnet_ids&quot;</span> <span class="p">{</span>
+  <span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;list&quot;</span>
+<span class="p">}</span>
+
+<span class="n">variable</span> <span class="s2">&quot;db_host&quot;</span> <span class="p">{</span>
+  <span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;string&quot;</span>
+<span class="p">}</span>
+
+<span class="n">variable</span> <span class="s2">&quot;db_username&quot;</span> <span class="p">{</span>
+  <span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;string&quot;</span>
+<span class="p">}</span>
+
+<span class="n">variable</span> <span class="s2">&quot;db_password&quot;</span> <span class="p">{</span>
+  <span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;string&quot;</span>
+<span class="p">}</span>
+
+<span class="n">variable</span> <span class="s2">&quot;db_database&quot;</span> <span class="p">{</span>
+  <span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;string&quot;</span>
+<span class="p">}</span>
+
+<span class="n">variable</span> <span class="s2">&quot;app_key&quot;</span> <span class="p">{</span>
+  <span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;string&quot;</span>
+<span class="p">}</span>
+
+<span class="n">data</span> <span class="s2">&quot;aws_region&quot;</span> <span class="s2">&quot;current&quot;</span> <span class="p">{}</span>
+
+<span class="n">data</span> <span class="s2">&quot;aws_caller_identity&quot;</span> <span class="s2">&quot;current&quot;</span> <span class="p">{}</span>
+
+<span class="n">locals</span> <span class="p">{</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">&quot;${var.name}-laravel&quot;</span>
+
+  <span class="c1"># アカウントID</span>
+  <span class="n">account_id</span> <span class="o">=</span> <span class="s2">&quot;${data.aws_caller_identity.current.account_id}&quot;</span>
+
+  <span class="c1"># プロビジョニングを実行するリージョン</span>
+  <span class="n">region</span> <span class="o">=</span> <span class="s2">&quot;${data.aws_region.current.name}&quot;</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_lb_target_group&quot;</span> <span class="s2">&quot;this&quot;</span> <span class="p">{</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">&quot;${local.name}&quot;</span>
+
+  <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">&quot;${var.vpc_id}&quot;</span>
+
+  <span class="n">port</span>        <span class="o">=</span> <span class="mi">80</span>
+  <span class="n">target_type</span> <span class="o">=</span> <span class="s2">&quot;ip&quot;</span>
+  <span class="n">protocol</span>    <span class="o">=</span> <span class="s2">&quot;HTTP&quot;</span>
+
+  <span class="n">health_check</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="mi">80</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">data</span> <span class="s2">&quot;template_file&quot;</span> <span class="s2">&quot;container_definitions&quot;</span> <span class="p">{</span>
+  <span class="n">template</span> <span class="o">=</span> <span class="s2">&quot;${file(&quot;</span><span class="o">.</span><span class="n n-Operator">/</span><span class="n">ecs_laravel</span><span class="o">/</span><span class="n">container_definitions</span><span class="o">.</span><span class="n">json</span><span class="s2">&quot;)}&quot;</span>
+
+  <span class="n">vars</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;latest&quot;</span>
+
+    <span class="n">account_id</span> <span class="o">=</span> <span class="s2">&quot;${local.account_id}&quot;</span>
+    <span class="n">region</span>     <span class="o">=</span> <span class="s2">&quot;${local.region}&quot;</span>
+    <span class="nb">name</span>       <span class="o">=</span> <span class="s2">&quot;${local.name}&quot;</span>
+
+    <span class="n">db_host</span>     <span class="o">=</span> <span class="s2">&quot;${var.db_host}&quot;</span>
+    <span class="n">db_username</span> <span class="o">=</span> <span class="s2">&quot;${var.db_username}&quot;</span>
+    <span class="n">db_password</span> <span class="o">=</span> <span class="s2">&quot;${var.db_password}&quot;</span>
+    <span class="n">db_database</span> <span class="o">=</span> <span class="s2">&quot;${var.db_database}&quot;</span>
+
+    <span class="n">app_key</span> <span class="o">=</span> <span class="s2">&quot;${var.app_key}&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_ecs_task_definition&quot;</span> <span class="s2">&quot;this&quot;</span> <span class="p">{</span>
+  <span class="n">family</span> <span class="o">=</span> <span class="s2">&quot;${local.name}&quot;</span>
+
+  <span class="n">container_definitions</span> <span class="o">=</span> <span class="s2">&quot;${data.template_file.container_definitions.rendered}&quot;</span>
+
+  <span class="n">cpu</span>                      <span class="o">=</span> <span class="s2">&quot;256&quot;</span>
+  <span class="n">memory</span>                   <span class="o">=</span> <span class="s2">&quot;512&quot;</span>
+  <span class="n">network_mode</span>             <span class="o">=</span> <span class="s2">&quot;awsvpc&quot;</span>
+  <span class="n">requires_compatibilities</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;FARGATE&quot;</span><span class="o">]</span>
+
+  <span class="n">task_role_arn</span>      <span class="o">=</span> <span class="s2">&quot;${aws_iam_role.task_execution.arn}&quot;</span>
+  <span class="n">execution_role_arn</span> <span class="o">=</span> <span class="s2">&quot;${aws_iam_role.task_execution.arn}&quot;</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_cloudwatch_log_group&quot;</span> <span class="s2">&quot;this&quot;</span> <span class="p">{</span>
+  <span class="nb">name</span>              <span class="o">=</span> <span class="s2">&quot;/${var.name}/ecs&quot;</span>
+  <span class="n">retention_in_days</span> <span class="o">=</span> <span class="s2">&quot;7&quot;</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_iam_role&quot;</span> <span class="s2">&quot;task_execution&quot;</span> <span class="p">{</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">&quot;${var.name}-TaskExecution&quot;</span>
+
+  <span class="n">assume_role_policy</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="dl">EOF</span>
+<span class="sh">{</span>
+<span class="sh">  &quot;Version&quot;: &quot;2012-10-17&quot;,</span>
+<span class="sh">  &quot;Statement&quot;: [</span>
+<span class="sh">    {</span>
+<span class="sh">      &quot;Action&quot;: &quot;sts:AssumeRole&quot;,</span>
+<span class="sh">      &quot;Principal&quot;: {</span>
+<span class="sh">        &quot;Service&quot;: &quot;ecs-tasks.amazonaws.com&quot;</span>
+<span class="sh">      },</span>
+<span class="sh">      &quot;Effect&quot;: &quot;Allow&quot;,</span>
+<span class="sh">      &quot;Sid&quot;: &quot;&quot;</span>
+<span class="sh">    }</span>
+<span class="sh">  ]</span>
+<span class="sh">}</span>
+<span class="dl">EOF</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_iam_role_policy&quot;</span> <span class="s2">&quot;task_execution&quot;</span> <span class="p">{</span>
+  <span class="n">role</span> <span class="o">=</span> <span class="s2">&quot;${aws_iam_role.task_execution.id}&quot;</span>
+
+  <span class="n">policy</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="dl">EOF</span>
+<span class="sh">{</span>
+<span class="sh">  &quot;Version&quot;: &quot;2012-10-17&quot;,</span>
+<span class="sh">  &quot;Statement&quot;: [</span>
+<span class="sh">    {</span>
+<span class="sh">      &quot;Action&quot;: [</span>
+<span class="sh">        &quot;logs:CreateLogGroup&quot;,</span>
+<span class="sh">        &quot;logs:CreateLogStream&quot;,</span>
+<span class="sh">        &quot;logs:PutLogEvents&quot;,</span>
+<span class="sh">        &quot;logs:DescribeLogGroups&quot;,</span>
+<span class="sh">        &quot;logs:DescribeLogStreams&quot;</span>
+<span class="sh">      ],</span>
+<span class="sh">      &quot;Effect&quot;: &quot;Allow&quot;,</span>
+<span class="sh">      &quot;Resource&quot;: &quot;*&quot;</span>
+<span class="sh">    }</span>
+<span class="sh">  ]</span>
+<span class="sh">}</span>
+<span class="dl">EOF</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_iam_role_policy_attachment&quot;</span> <span class="s2">&quot;task_execution&quot;</span> <span class="p">{</span>
+  <span class="n">role</span>       <span class="o">=</span> <span class="s2">&quot;${aws_iam_role.task_execution.name}&quot;</span>
+  <span class="n">policy_arn</span> <span class="o">=</span> <span class="s2">&quot;arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy&quot;</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_lb_listener_rule&quot;</span> <span class="s2">&quot;this&quot;</span> <span class="p">{</span>
+  <span class="n">listener_arn</span> <span class="o">=</span> <span class="s2">&quot;${var.https_listener_arn}&quot;</span>
+
+  <span class="n">action</span> <span class="p">{</span>
+    <span class="n">type</span>             <span class="o">=</span> <span class="s2">&quot;forward&quot;</span>
+    <span class="n">target_group_arn</span> <span class="o">=</span> <span class="s2">&quot;${aws_lb_target_group.this.id}&quot;</span>
+  <span class="p">}</span>
+
+  <span class="n">condition</span> <span class="p">{</span>
+    <span class="n">field</span>  <span class="o">=</span> <span class="s2">&quot;path-pattern&quot;</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;*&quot;</span><span class="o">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_security_group&quot;</span> <span class="s2">&quot;this&quot;</span> <span class="p">{</span>
+  <span class="nb">name</span>        <span class="o">=</span> <span class="s2">&quot;${local.name}&quot;</span>
+  <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;${local.name}&quot;</span>
+
+  <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">&quot;${var.vpc_id}&quot;</span>
+
+  <span class="n">egress</span> <span class="p">{</span>
+    <span class="n">from_port</span>   <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">to_port</span>     <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">protocol</span>    <span class="o">=</span> <span class="s2">&quot;-1&quot;</span>
+    <span class="n">cidr_blocks</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="o">]</span>
+  <span class="p">}</span>
+
+  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="no">Name</span> <span class="o">=</span> <span class="s2">&quot;${local.name}&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_security_group_rule&quot;</span> <span class="s2">&quot;this_http&quot;</span> <span class="p">{</span>
+  <span class="n">security_group_id</span> <span class="o">=</span> <span class="s2">&quot;${aws_security_group.this.id}&quot;</span>
+
+  <span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;ingress&quot;</span>
+
+  <span class="n">from_port</span>   <span class="o">=</span> <span class="mi">80</span>
+  <span class="n">to_port</span>     <span class="o">=</span> <span class="mi">80</span>
+  <span class="n">protocol</span>    <span class="o">=</span> <span class="s2">&quot;tcp&quot;</span>
+  <span class="n">cidr_blocks</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="o">]</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">&quot;aws_ecs_service&quot;</span> <span class="s2">&quot;this&quot;</span> <span class="p">{</span>
+  <span class="n">depends_on</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;aws_lb_listener_rule.this&quot;</span><span class="o">]</span>
+
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">&quot;${local.name}&quot;</span>
+
+  <span class="n">launch_type</span> <span class="o">=</span> <span class="s2">&quot;FARGATE&quot;</span>
+
+  <span class="n">desired_count</span> <span class="o">=</span> <span class="mi">1</span>
+
+  <span class="n">cluster</span> <span class="o">=</span> <span class="s2">&quot;${var.cluster_name}&quot;</span>
+
+  <span class="n">task_definition</span> <span class="o">=</span> <span class="s2">&quot;${aws_ecs_task_definition.this.arn}&quot;</span>
+
+  <span class="n">network_configuration</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">subnets</span>         <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;${var.subnet_ids}&quot;</span><span class="o">]</span>
+    <span class="n">security_groups</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;${aws_security_group.this.id}&quot;</span><span class="o">]</span>
+  <span class="p">}</span>
+
+  <span class="n">load_balancer</span> <span class="o">=</span> <span class="o">[</span>
+    <span class="p">{</span>
+      <span class="n">target_group_arn</span> <span class="o">=</span> <span class="s2">&quot;${aws_lb_target_group.this.arn}&quot;</span>
+      <span class="n">container_name</span>   <span class="o">=</span> <span class="s2">&quot;nginx&quot;</span>
+      <span class="n">container_port</span>   <span class="o">=</span> <span class="s2">&quot;80&quot;</span>
+    <span class="p">},</span>
+  <span class="o">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="_4">動作確認<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>実際にドメインにアクセスし、Laravelの画面が表示されれば成功です</p>
+<h2 id="dbmigration">DBへのmigration<a class="headerlink" href="#dbmigration" title="Permanent link">&para;</a></h2>
+<p>ハンズオンでのワンオフの実行なので、GUIからコマンドを実行します。<br />
+実際にプロダクションで行う際にはスクリプトやパイプラインの中に組み込むのが良いですが、migrationを本当に自動的に実行して良いのかはプロダクションによって変わります。プロダクトの性質によってmigrationの方法は選択しましょう。</p>
+<p>ECSコンソールに入り、起動中のタスクを選択します。  </p>
+<p><img alt="select task" src="../imgs/aws-select-task.png" /></p>
+<p>「同様のものを実行」で起動中のタスクを元に新しいタスクを実行します。</p>
+<p><img alt="run task" src="../imgs/aws-run-task.png" /></p>
+<p><code>php artisan migrate</code> を実行するために、以下の設定を行います。  </p>
+<ol>
+<li>起動タイプ: FARGATE</li>
+<li>クラスターVPC: &lt;ハンズオンで作成したVPC&gt;</li>
+<li>サブネット: &lt;ハンズオンで作成した <strong>プライベートサブネット</strong> &gt;</li>
+<li>セキュリティーグループ: &lt;ハンズオンで作成した <strong>ECS Service用のセキュリティーグループ</strong> &gt;</li>
+<li>パブリックIPの自動割り当て: DISABLE</li>
+<li>コンテナの上書き<ul>
+<li>コマンドの上書き: <code>php,artisan,migrate,--force</code></li>
+</ul>
+</li>
+</ol>
+<p>入力後、「タスクの実行」を押下します。</p>
+<p><img alt="migration" src="../imgs/aws-laravel-migrate.png" /></p>
+<p>migration結果の確認</p>
+<p><img alt="logs" src="../imgs/aws-migration-cloudwatch.png" /></p>
+<p><img alt="result" src="../imgs/aws-migration-result.png" /></p>
+<h2 id="_5">動作確認<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> curl &lt;YOUR DNS NAME&gt;/api/books
+<span class="go">[]</span>
+<span class="gp">$</span> curl -X POST &lt;YOUR DNS NAME&gt;/api/books
+<span class="go">{</span>
+<span class="go">    &quot;title&quot;: &quot;tmp title&quot;,</span>
+<span class="go">    &quot;updated_at&quot;: &quot;2019-03-20 09:34:00&quot;,</span>
+<span class="go">    &quot;created_at&quot;: &quot;2019-03-20 09:34:00&quot;,</span>
+<span class="go">    &quot;id&quot;: 1</span>
+<span class="go">}</span>
+<span class="gp">$</span> curl -X POST &lt;YOUR DNS NAME&gt;/api/books
+<span class="go">{</span>
+<span class="go">    &quot;title&quot;: &quot;tmp title&quot;,</span>
+<span class="go">    &quot;updated_at&quot;: &quot;2019-03-20 09:34:00&quot;,</span>
+<span class="go">    &quot;created_at&quot;: &quot;2019-03-20 09:34:00&quot;,</span>
+<span class="go">    &quot;id&quot;: 2</span>
+<span class="go">}</span>
+<span class="gp">$</span> curl &lt;YOUR DNS NAME&gt;/api/books
+<span class="go">[</span>
+<span class="go">    {</span>
+<span class="go">        &quot;id&quot;: 1,</span>
+<span class="go">        &quot;title&quot;: &quot;tmp title&quot;,</span>
+<span class="go">        &quot;created_at&quot;: &quot;2019-03-20 09:33:53&quot;,</span>
+<span class="go">        &quot;updated_at&quot;: &quot;2019-03-20 09:33:53&quot;</span>
+<span class="go">    },</span>
+<span class="go">    {</span>
+<span class="go">        &quot;id&quot;: 2,</span>
+<span class="go">        &quot;title&quot;: &quot;tmp title&quot;,</span>
+<span class="go">        &quot;created_at&quot;: &quot;2019-03-20 09:34:00&quot;,</span>
+<span class="go">        &quot;updated_at&quot;: &quot;2019-03-20 09:34:00&quot;</span>
+<span class="go">    }</span>
+<span class="go">]</span>
+</pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../ecr/" title="ECR" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前
+                </span>
+                ECR
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../cleanup/" title="片付け" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  次
+                </span>
+                片付け
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.267712eb.js"></script>
+      
+        
+        
+          
+          <script src="../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../assets/custom.js"></script>
+      
+    
+  </body>
+</html>
