@@ -13,8 +13,30 @@
 ## コード
 長くなりますが、コードを記載します。
 
+`./main.tf`
+```ruby
+module "ecs_laravel" {
+  source = "./ecs_laravel"
 
-`./ecs_laravel/`
+  name = "${var.name}"
+
+  cluster_name       = "${module.ecs_cluster.cluster_name}"
+  vpc_id             = "${module.network.vpc_id}"
+  subnet_ids         = "${module.network.private_subnet_ids}"
+  https_listener_arn = "${module.elb.https_listener_arn}"
+
+  db_host = "${module.rds.endpoint}"
+
+  db_username = "myusername"
+  db_password = "mypassword"
+  db_database = "mydatabase"
+
+  app_key = "base64:p5Fu8gRUOuPUXzY3VcxpnYsUR9f2h8nTSm5JlYkzPTM="
+}
+```
+
+
+`./ecs_laravel/main.tf`
 ```ruby
 variable "name" {
   type = "string"
