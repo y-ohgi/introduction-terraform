@@ -228,7 +228,11 @@ resource "aws_vpc" "main" {
 基本的にTerraformが依存関係と作成順は解決してくれますが、稀に作成順の定義が必要になるケースがあるので覚えておくと良いでしょう。
 
 ## シンタックスの活用
+![aws](../../handson/imgs/aws.png)
+
 [ハンズオン](../../handson/about/) で定義したコードは非常長く、可読性が悪くなっています。  
-この章で紹介したシンタックスを使用するとどの様になるか、サンプルコードを記述しました。この後はこのサンプルコードをもとに構築を進めます。
+この章で紹介したシンタックスを使用するとどの様になるか、サンプルコードを記述しました。
 
 [https://github.com/y-ohgi/introduction-terraform/tree/master/handson/syntax](https://github.com/y-ohgi/introduction-terraform/tree/master/handson/syntax)
+
+この後の章はこのサンプルコードをもとに構築を進めます。

@@ -1,0 +1,67 @@
+[
+  {
+    "name": "nginx",
+    "image": "${account_id}.dkr.ecr.${region}.amazonaws.com/nginx:${tag}",
+    "cpu": 0,
+    "memory": 128,
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "hostPort": 80,
+        "protocol": "tcp"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "${region}",
+        "awslogs-group": "/${name}/ecs",
+        "awslogs-stream-prefix": "nginx"
+      }
+    }
+  },
+  {
+    "name": "app",
+    "image": "${account_id}.dkr.ecr.${region}.amazonaws.com/app:${tag}",
+    "cpu": 0,
+    "memory": 128,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "${region}",
+        "awslogs-group": "/${name}/ecs",
+        "awslogs-stream-prefix": "app"
+      }
+    },
+    "environment": [
+      {
+        "name": "LOG_CHANNEL",
+        "value": "stderr"
+      },
+      {
+        "name": "DB_CONNECTION",
+        "value": "mysql"
+      },
+      {
+        "name": "DB_HOST",
+        "value": "${db_host}"
+      },
+      {
+        "name": "DB_USERNAME",
+        "value": "${db_username}"
+      },
+      {
+        "name": "DB_PASSWORD",
+        "value": "${db_password}"
+      },
+      {
+        "name": "DB_DATABASE",
+        "value": "${db_database}"
+      },
+      {
+        "name": "APP_KEY",
+        "value": "${app_key}"
+      }
+    ]
+  }
+]
