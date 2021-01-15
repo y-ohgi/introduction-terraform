@@ -9,9 +9,9 @@ Terraformで実際に記述していきましょう。
 ## 準備
 新しいTerminalを立ち上げ、以下のコマンドでこの章用のディレクトリを作成し、作成したディレクトリに移動してください。  
 ```console
-$ cd ~/Desktop/
-$ mkdir terraform
-$ cd terraform
+$ cd ~/Desktop/terraform-handson
+$ mkdir handson
+$ cd handson
 ```
 
 Terraformを立ち上げているTerminalにもディレクトリが作成されていることを確認し、共有されたディレクトリに移動してください。
