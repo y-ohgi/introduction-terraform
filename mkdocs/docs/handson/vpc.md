@@ -35,19 +35,17 @@ terraformの初期化を行います。
 ```console
 # terraform init
 
+Initializing the backend...
+
 Initializing provider plugins...
-- Checking for available provider plugins on https://releases.hashicorp.com...
-- Downloading plugin for provider "aws" (2.6.0)...
+- Finding latest version of hashicorp/aws...
+- Installing hashicorp/aws v5.10.0...
+- Installed hashicorp/aws v5.10.0 (signed by HashiCorp)
 
-The following providers do not have any version constraints in configuration,
-so the latest version was installed.
-
-To prevent automatic upgrades to new major versions that may contain breaking
-changes, it is recommended to add version = "..." constraints to the
-corresponding provider blocks in configuration, with the constraint strings
-suggested below.
-
-* provider.aws: version = "~> 2.6"
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
 
 Terraform has been successfully initialized!
 
@@ -80,49 +78,45 @@ resource "aws_vpc" "main" {
 コードの追記が追えたらplanを行ってから適用を行います。
 ```console
 # terraform plan
-terraform plan
-Refreshing Terraform state in-memory prior to plan...
-The refreshed state will be used to calculate this plan, but will not be
-persisted to local or remote state storage.
 
-
-------------------------------------------------------------------------
-
-An execution plan has been generated and is shown below.
-Resource actions are indicated with the following symbols:
+Terraform used the selected providers to generate the following execution plan. Resource actions
+are indicated with the following symbols:
   + create
 
 Terraform will perform the following actions:
 
-  + aws_vpc.main
-      id:                               <computed>
-      arn:                              <computed>
-      assign_generated_ipv6_cidr_block: "false"
-      cidr_block:                       "10.0.0.0/16"
-      default_network_acl_id:           <computed>
-      default_route_table_id:           <computed>
-      default_security_group_id:        <computed>
-      dhcp_options_id:                  <computed>
-      enable_classiclink:               <computed>
-      enable_classiclink_dns_support:   <computed>
-      enable_dns_hostnames:             <computed>
-      enable_dns_support:               "true"
-      instance_tenancy:                 "default"
-      ipv6_association_id:              <computed>
-      ipv6_cidr_block:                  <computed>
-      main_route_table_id:              <computed>
-      owner_id:                         <computed>
-      tags.%:                           "1"
-      tags.Name:                        "handson"
-
+  # aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = (known after apply)
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Name" = "handson"
+        }
+      + tags_all                             = {
+          + "Name" = "handson"
+        }
+    }
 
 Plan: 1 to add, 0 to change, 0 to destroy.
 
-------------------------------------------------------------------------
+────────────────────────────────────────────────────────────────────────────────────────────────
 
-Note: You didn't specify an "-out" parameter to save this plan, so Terraform
-can't guarantee that exactly these actions will be performed if
-"terraform apply" is subsequently run.
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take
+exactly these actions if you run "terraform apply" now.
 ```
 ```console
 # terraform apply
@@ -145,7 +139,7 @@ Public SubnetとPrivate Subnetの2種類と、ap-northeast-1リージョン(東�
 # https://www.terraform.io/docs/providers/aws/r/subnet.html
 resource "aws_subnet" "public_1a" {
   # 先程作成したVPCを参照し、そのVPC内にSubnetを立てる
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.main.id
 
   # Subnetを作成するAZ
   availability_zone = "ap-northeast-1a"
@@ -161,43 +155,45 @@ resource "aws_subnet" "public_1a" {
 planを実行し、Subnetが作成されることを確認しましょう。
 ```console
 # terraform plan
-Refreshing Terraform state in-memory prior to plan...
-The refreshed state will be used to calculate this plan, but will not be
-persisted to local or remote state storage.
+aws_vpc.main: Refreshing state... [id=vpc-04a9a87caaa295f60]
 
-aws_vpc.main: Refreshing state... (ID: vpc-0396987ded1c4fd87)
-
-------------------------------------------------------------------------
-
-An execution plan has been generated and is shown below.
-Resource actions are indicated with the following symbols:
+Terraform used the selected providers to generate the following execution plan. Resource actions
+are indicated with the following symbols:
   + create
 
 Terraform will perform the following actions:
 
-  + aws_subnet.public_1a
-      id:                              <computed>
-      arn:                             <computed>
-      assign_ipv6_address_on_creation: "false"
-      availability_zone:               "ap-northeast-1a"
-      availability_zone_id:            <computed>
-      cidr_block:                      "10.0.1.0/24"
-      ipv6_cidr_block:                 <computed>
-      ipv6_cidr_block_association_id:  <computed>
-      map_public_ip_on_launch:         "false"
-      owner_id:                        <computed>
-      tags.%:                          "1"
-      tags.Name:                       "handson-public-1a"
-      vpc_id:                          "vpc-0396987ded1c4fd87"
-
+  # aws_subnet.public_1a will be created
+  + resource "aws_subnet" "public_1a" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-northeast-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "handson-public-1a"
+        }
+      + tags_all                                       = {
+          + "Name" = "handson-public-1a"
+        }
+      + vpc_id                                         = "vpc-04a9a87caaa295f60"
+    }
 
 Plan: 1 to add, 0 to change, 0 to destroy.
 
-------------------------------------------------------------------------
+────────────────────────────────────────────────────────────────────────────────────────────────
 
-Note: You didn't specify an "-out" parameter to save this plan, so Terraform
-can't guarantee that exactly these actions will be performed if
-"terraform apply" is subsequently run.
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take
+exactly these actions if you run "terraform apply" now.
 ```
 
 問題なければapplyを実行してSubnetの作成を行います。
@@ -210,7 +206,7 @@ can't guarantee that exactly these actions will be performed if
 リソース名（e.g. "publi\_1c", "public\_1d"）と各種プロパティが少しずつことなるので注意してください。
 ```ruby
 resource "aws_subnet" "public_1c" {
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.main.id
 
   availability_zone = "ap-northeast-1c"
 
@@ -222,7 +218,7 @@ resource "aws_subnet" "public_1c" {
 }
 
 resource "aws_subnet" "public_1d" {
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.main.id
 
   availability_zone = "ap-northeast-1d"
 
@@ -235,7 +231,7 @@ resource "aws_subnet" "public_1d" {
 
 # Private Subnets
 resource "aws_subnet" "private_1a" {
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.main.id
 
   availability_zone = "ap-northeast-1a"
   cidr_block        = "10.0.10.0/24"
@@ -246,7 +242,7 @@ resource "aws_subnet" "private_1a" {
 }
 
 resource "aws_subnet" "private_1c" {
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.main.id
 
   availability_zone = "ap-northeast-1c"
   cidr_block        = "10.0.20.0/24"
@@ -257,7 +253,7 @@ resource "aws_subnet" "private_1c" {
 }
 
 resource "aws_subnet" "private_1d" {
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.main.id
 
   availability_zone = "ap-northeast-1d"
   cidr_block        = "10.0.30.0/24"
@@ -295,7 +291,7 @@ VPCからインターネットへの出入り口となるInternet Gatewayを作�
 # Internet Gateway
 # https://www.terraform.io/docs/providers/aws/r/internet_gateway.html
 resource "aws_internet_gateway" "main" {
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.main.id
 
   tags = {
     Name = "handson"
@@ -324,7 +320,7 @@ NAT Gatewayは1つのElastic IPが必要なのでその割り当てと、AZ毎�
 # Elasti IP
 # https://www.terraform.io/docs/providers/aws/r/eip.html
 resource "aws_eip" "nat_1a" {
-  vpc = true
+  domain = "vpc"
 
   tags = {
     Name = "handson-natgw-1a"
@@ -334,8 +330,8 @@ resource "aws_eip" "nat_1a" {
 # NAT Gateway
 # https://www.terraform.io/docs/providers/aws/r/nat_gateway.html
 resource "aws_nat_gateway" "nat_1a" {
-  subnet_id     = "${aws_subnet.public_1a.id}" # NAT Gatewayを配置するSubnetを指定
-  allocation_id = "${aws_eip.nat_1a.id}"       # 紐付けるElasti IP
+  subnet_id     = aws_subnet.public_1a.id # NAT Gatewayを配置するSubnetを指定
+  allocation_id = aws_eip.nat_1a.id       # 紐付けるElasti IP
 
   tags = {
     Name = "handson-1a"
@@ -346,59 +342,71 @@ resource "aws_nat_gateway" "nat_1a" {
 planで変更確認を行います。
 ```console
 # terraform plan
-Refreshing Terraform state in-memory prior to plan...
-The refreshed state will be used to calculate this plan, but will not be
-persisted to local or remote state storage.
+aws_vpc.main: Refreshing state... [id=vpc-04a9a87caaa295f60]
+aws_subnet.public_1a: Refreshing state... [id=subnet-041960c1f8a5b967d]
+aws_subnet.public_1d: Refreshing state... [id=subnet-0a46037c64c900068]
+aws_internet_gateway.main: Refreshing state... [id=igw-0d984cbd5a7fd3fe9]
+aws_subnet.private_1c: Refreshing state... [id=subnet-0662a557c1b84449f]
+aws_subnet.private_1a: Refreshing state... [id=subnet-03f8dc92279c34bb6]
+aws_subnet.public_1c: Refreshing state... [id=subnet-03863af3bcfc4bb08]
+aws_subnet.private_1d: Refreshing state... [id=subnet-060ec4e0cf9bfe036]
 
-aws_vpc.main: Refreshing state... (ID: vpc-0396987ded1c4fd87)
-aws_subnet.public_1d: Refreshing state... (ID: subnet-0f8eb38d6429200be)
-aws_internet_gateway.main: Refreshing state... (ID: igw-0e46a72941683c00f)
-aws_subnet.private_1a: Refreshing state... (ID: subnet-0b4e88abdc1cf586a)
-aws_subnet.private_1d: Refreshing state... (ID: subnet-0910f1d541d1ad52d)
-aws_subnet.private_1c: Refreshing state... (ID: subnet-01e1173f6b8ed56d5)
-aws_subnet.public_1c: Refreshing state... (ID: subnet-0519598224db34049)
-aws_subnet.public_1a: Refreshing state... (ID: subnet-08b90fd31e5d8dec4)
-
-------------------------------------------------------------------------
-
-An execution plan has been generated and is shown below.
-Resource actions are indicated with the following symbols:
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
   + create
 
 Terraform will perform the following actions:
 
-  + aws_eip.nat_1a
-      id:                   <computed>
-      allocation_id:        <computed>
-      association_id:       <computed>
-      domain:               <computed>
-      instance:             <computed>
-      network_interface:    <computed>
-      private_dns:          <computed>
-      private_ip:           <computed>
-      public_dns:           <computed>
-      public_ip:            <computed>
-      public_ipv4_pool:     <computed>
-      tags.%:               "1"
-      tags.Name:            "handson-natgw-1a"
-      vpc:                  "true"
+  # aws_eip.nat_1a will be created
+  + resource "aws_eip" "nat_1a" {
+      + allocation_id        = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + tags                 = {
+          + "Name" = "handson-natgw-1a"
+        }
+      + tags_all             = {
+          + "Name" = "handson-natgw-1a"
+        }
+      + vpc                  = (known after apply)
+    }
 
-  + aws_nat_gateway.nat_1a
-      id:                   <computed>
-      allocation_id:        "${aws_eip.nat_1a.id}"
-      network_interface_id: <computed>
-      private_ip:           <computed>
-      public_ip:            <computed>
-      subnet_id:            "subnet-08b90fd31e5d8dec4"
-
+  # aws_nat_gateway.nat_1a will be created
+  + resource "aws_nat_gateway" "nat_1a" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = "subnet-041960c1f8a5b967d"
+      + tags                               = {
+          + "Name" = "handson-1a"
+        }
+      + tags_all                           = {
+          + "Name" = "handson-1a"
+        }
+    }
 
 Plan: 2 to add, 0 to change, 0 to destroy.
 
-------------------------------------------------------------------------
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-Note: You didn't specify an "-out" parameter to save this plan, so Terraform
-can't guarantee that exactly these actions will be performed if
-"terraform apply" is subsequently run.
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform
+apply" now.
 ```
 
 Elastic IP とNAT Gateway の2つが作成されることが確認できました。
@@ -411,7 +419,7 @@ applyを実行します。
 残り2つのNAT Gatewayも作成して適用しましょう
 ```ruby
 resource "aws_eip" "nat_1c" {
-  vpc = true
+  domain = "vpc"
 
   tags = {
     Name = "handson-natgw-1c"
@@ -419,8 +427,8 @@ resource "aws_eip" "nat_1c" {
 }
 
 resource "aws_nat_gateway" "nat_1c" {
-  subnet_id     = "${aws_subnet.public_1c.id}"
-  allocation_id = "${aws_eip.nat_1c.id}"
+  subnet_id     = aws_subnet.public_1c.id
+  allocation_id = aws_eip.nat_1c.id
 
   tags = {
     Name = "handson-1c"
@@ -428,7 +436,7 @@ resource "aws_nat_gateway" "nat_1c" {
 }
 
 resource "aws_eip" "nat_1d" {
-  vpc = true
+  domain = "vpc"
 
   tags = {
     Name = "handson-natgw-1d"
@@ -436,8 +444,8 @@ resource "aws_eip" "nat_1d" {
 }
 
 resource "aws_nat_gateway" "nat_1d" {
-  subnet_id     = "${aws_subnet.public_1d.id}"
-  allocation_id = "${aws_eip.nat_1d.id}"
+  subnet_id     = aws_subnet.public_1d.id
+  allocation_id = aws_eip.nat_1d.id
 
   tags = {
     Name = "handson-1d"
@@ -448,7 +456,7 @@ resource "aws_nat_gateway" "nat_1d" {
 ```console
 # terraform plan
   :
-Plan: 6 to add, 0 to change, 0 to destroy.
+Plan: 4 to add, 0 to change, 0 to destroy.
   :
 # terraform apply
   :
@@ -479,7 +487,7 @@ Internet Gatewayを使用してインターネットへ疎通するためのRout
 # Route Table
 # https://www.terraform.io/docs/providers/aws/r/route_table.html
 resource "aws_route_table" "public" {
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.main.id
 
   tags = {
     Name = "handson-public"
@@ -490,25 +498,25 @@ resource "aws_route_table" "public" {
 # https://www.terraform.io/docs/providers/aws/r/route.html
 resource "aws_route" "public" {
   destination_cidr_block = "0.0.0.0/0"
-  route_table_id         = "${aws_route_table.public.id}"
-  gateway_id             = "${aws_internet_gateway.main.id}"
+  route_table_id         = aws_route_table.public.id
+  gateway_id             = aws_internet_gateway.main.id
 }
 
 # Association
 # https://www.terraform.io/docs/providers/aws/r/route_table_association.html
 resource "aws_route_table_association" "public_1a" {
-  subnet_id      = "${aws_subnet.public_1a.id}"
-  route_table_id = "${aws_route_table.public.id}"
+  subnet_id      = aws_subnet.public_1a.id
+  route_table_id = aws_route_table.public.id
 }
 
 resource "aws_route_table_association" "public_1c" {
-  subnet_id      = "${aws_subnet.public_1c.id}"
-  route_table_id = "${aws_route_table.public.id}"
+  subnet_id      = aws_subnet.public_1c.id
+  route_table_id = aws_route_table.public.id
 }
 
 resource "aws_route_table_association" "public_1d" {
-  subnet_id      = "${aws_subnet.public_1d.id}"
-  route_table_id = "${aws_route_table.public.id}"
+  subnet_id      = aws_subnet.public_1d.id
+  route_table_id = aws_route_table.public.id
 }
 ```
 
@@ -530,7 +538,7 @@ Internet Gateway との違いとしては各AZにNAT Gateway が必要になる�
 # Route Table (Private)
 # https://www.terraform.io/docs/providers/aws/r/route_table.html
 resource "aws_route_table" "private_1a" {
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.main.id
 
   tags = {
     Name = "handson-private-1a"
@@ -538,7 +546,7 @@ resource "aws_route_table" "private_1a" {
 }
 
 resource "aws_route_table" "private_1c" {
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.main.id
 
   tags = {
     Name = "handson-private-1c"
@@ -546,7 +554,7 @@ resource "aws_route_table" "private_1c" {
 }
 
 resource "aws_route_table" "private_1d" {
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.main.id
 
   tags = {
     Name = "handson-private-1d"
@@ -557,37 +565,37 @@ resource "aws_route_table" "private_1d" {
 # https://www.terraform.io/docs/providers/aws/r/route.html
 resource "aws_route" "private_1a" {
   destination_cidr_block = "0.0.0.0/0"
-  route_table_id         = "${aws_route_table.private_1a.id}"
-  nat_gateway_id         = "${aws_nat_gateway.nat_1a.id}"
+  route_table_id         = aws_route_table.private_1a.id
+  nat_gateway_id         = aws_nat_gateway.nat_1a.id
 }
 
 resource "aws_route" "private_1c" {
   destination_cidr_block = "0.0.0.0/0"
-  route_table_id         = "${aws_route_table.private_1c.id}"
-  nat_gateway_id         = "${aws_nat_gateway.nat_1c.id}"
+  route_table_id         = aws_route_table.private_1c.id
+  nat_gateway_id         = aws_nat_gateway.nat_1c.id
 }
 
 resource "aws_route" "private_1d" {
   destination_cidr_block = "0.0.0.0/0"
-  route_table_id         = "${aws_route_table.private_1d.id}"
-  nat_gateway_id         = "${aws_nat_gateway.nat_1d.id}"
+  route_table_id         = aws_route_table.private_1d.id
+  nat_gateway_id         = aws_nat_gateway.nat_1d.id
 }
 
 # Association (Private)
 # https://www.terraform.io/docs/providers/aws/r/route_table_association.html
 resource "aws_route_table_association" "private_1a" {
-  subnet_id      = "${aws_subnet.private_1a.id}"
-  route_table_id = "${aws_route_table.private_1a.id}"
+  subnet_id      = aws_subnet.private_1a.id
+  route_table_id = aws_route_table.private_1a.id
 }
 
 resource "aws_route_table_association" "private_1c" {
-  subnet_id      = "${aws_subnet.private_1c.id}"
-  route_table_id = "${aws_route_table.private_1c.id}"
+  subnet_id      = aws_subnet.private_1c.id
+  route_table_id = aws_route_table.private_1c.id
 }
 
 resource "aws_route_table_association" "private_1d" {
-  subnet_id      = "${aws_subnet.private_1d.id}"
-  route_table_id = "${aws_route_table.private_1d.id}"
+  subnet_id      = aws_subnet.private_1d.id
+  route_table_id = aws_route_table.private_1d.id
 }
 ```
 
