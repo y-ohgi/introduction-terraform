@@ -78,7 +78,7 @@ resource "aws_vpc" "main" { # "main" という命名を行う
 
 # Subnetを作成する
 resource "aws_subnet" "main" { # 別のリソースであれば命名が被っていても問題ないです
-  vpc_id     = "${aws_vpc.main.id}" # aws_vpc.mainでmainと命名されたVPCを参照し、そのVPCのIDを取得する
+  vpc_id     = aws_vpc.main.id # aws_vpc.mainでmainと命名されたVPCを参照し、そのVPCのIDを取得する
   cidr_block = "10.0.1.0/24"
 }
 ```
@@ -113,19 +113,17 @@ Terraformで新しく設定を記述した場合、初期化を行う必要が�
 ```console
 # terraform init
 
+Initializing the backend...
+
 Initializing provider plugins...
-- Checking for available provider plugins on https://releases.hashicorp.com...
-- Downloading plugin for provider "aws" (2.6.0)...
+- Finding latest version of hashicorp/aws...
+- Installing hashicorp/aws v5.10.0...
+- Installed hashicorp/aws v5.10.0 (signed by HashiCorp)
 
-The following providers do not have any version constraints in configuration,
-so the latest version was installed.
-
-To prevent automatic upgrades to new major versions that may contain breaking
-changes, it is recommended to add version = "..." constraints to the
-corresponding provider blocks in configuration, with the constraint strings
-suggested below.
-
-* provider.aws: version = "~> 2.6"
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
 
 Terraform has been successfully initialized!
 
@@ -143,33 +141,37 @@ commands will detect it and remind you to do so if necessary.
 ```console
 # terraform apply
 
-An execution plan has been generated and is shown below.
-Resource actions are indicated with the following symbols:
+Terraform used the selected providers to generate the following execution plan. Resource
+actions are indicated with the following symbols:
   + create
 
 Terraform will perform the following actions:
 
-  + aws_vpc.main
-      id:                               <computed>
-      arn:                              <computed>
-      assign_generated_ipv6_cidr_block: "false"
-      cidr_block:                       "10.0.0.0/16"
-      default_network_acl_id:           <computed>
-      default_route_table_id:           <computed>
-      default_security_group_id:        <computed>
-      dhcp_options_id:                  <computed>
-      enable_classiclink:               <computed>
-      enable_classiclink_dns_support:   <computed>
-      enable_dns_hostnames:             <computed>
-      enable_dns_support:               "true"
-      instance_tenancy:                 "default"
-      ipv6_association_id:              <computed>
-      ipv6_cidr_block:                  <computed>
-      main_route_table_id:              <computed>
-      owner_id:                         <computed>
-      tags.%:                           "1"
-      tags.Name:                        "vpc-handson"
-
+  # aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = (known after apply)
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Name" = "vpc-handson"
+        }
+      + tags_all                             = {
+          + "Name" = "vpc-handson"
+        }
+    }
 
 Plan: 1 to add, 0 to change, 0 to destroy.
 
@@ -177,7 +179,7 @@ Do you want to perform these actions?
   Terraform will perform the actions described above.
   Only 'yes' will be accepted to approve.
 
-  Enter a value:
+  Enter a value: 
 ```
 
 > Plan: 1 to add, 0 to change, 0 to destroy.
@@ -189,25 +191,7 @@ Do you want to perform these actions?
   Enter a value: yes
 
 aws_vpc.main: Creating...
-  arn:                              "" => "<computed>"
-  assign_generated_ipv6_cidr_block: "" => "false"
-  cidr_block:                       "" => "10.0.0.0/16"
-  default_network_acl_id:           "" => "<computed>"
-  default_route_table_id:           "" => "<computed>"
-  default_security_group_id:        "" => "<computed>"
-  dhcp_options_id:                  "" => "<computed>"
-  enable_classiclink:               "" => "<computed>"
-  enable_classiclink_dns_support:   "" => "<computed>"
-  enable_dns_hostnames:             "" => "<computed>"
-  enable_dns_support:               "" => "true"
-  instance_tenancy:                 "" => "default"
-  ipv6_association_id:              "" => "<computed>"
-  ipv6_cidr_block:                  "" => "<computed>"
-  main_route_table_id:              "" => "<computed>"
-  owner_id:                         "" => "<computed>"
-  tags.%:                           "" => "1"
-  tags.Name:                        "" => "vpc-handson"
-aws_vpc.main: Creation complete after 7s (ID: vpc-028d784cfaa5ca479)
+aws_vpc.main: Creation complete after 2s [id=vpc-01682a619af75ba3e]
 
 Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 ```
@@ -241,24 +225,32 @@ Terraformではコードを適用する前に、どのような変更がかか�
 
 ```console
 # terraform plan
-The refreshed state will be used to calculate this plan, but will not be
-persisted to local or remote state storage.
+aws_vpc.main: Refreshing state... [id=vpc-01682a619af75ba3e]
 
-aws_vpc.main: Refreshing state... (ID: vpc-001c076e2cd2e79af)
-
-------------------------------------------------------------------------
-
-An execution plan has been generated and is shown below.
-Resource actions are indicated with the following symbols:
+Terraform used the selected providers to generate the following execution plan. Resource
+actions are indicated with the following symbols:
   ~ update in-place
 
 Terraform will perform the following actions:
 
-  ~ aws_vpc.main
-      tags.Name: "vpc-handson" => "vpc-handson-hoge"
-
+  # aws_vpc.main will be updated in-place
+  ~ resource "aws_vpc" "main" {
+        id                                   = "vpc-01682a619af75ba3e"
+      ~ tags                                 = {
+          ~ "Name" = "vpc-handson" -> "vpc-handson-hoge"
+        }
+      ~ tags_all                             = {
+          ~ "Name" = "vpc-handson" -> "vpc-handson-hoge"
+        }
+        # (14 unchanged attributes hidden)
+    }
 
 Plan: 0 to add, 1 to change, 0 to destroy.
+
+───────────────────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to
+take exactly these actions if you run "terraform apply" now.
 
 ------------------------------------------------------------------------
 
@@ -286,26 +278,30 @@ Terraformが管理しているリソースは `terraform show` コマンドで�
 まずはコマンドを打って確認してみましょう。
 ```
 # terraform show
-aws_vpc.main:
-  id = vpc-07be0a5e024877c48
-  arn = arn:aws:ec2:ap-northeast-1:856925507022:vpc/vpc-07be0a5e024877c48
-  assign_generated_ipv6_cidr_block = false
-  cidr_block = 10.0.0.0/16
-  default_network_acl_id = acl-0a00c5fa26f28e853
-  default_route_table_id = rtb-0681966791d3ad652
-  default_security_group_id = sg-0a5a4b4a19b9d4240
-  dhcp_options_id = dopt-23aa3947
-  enable_classiclink = false
-  enable_classiclink_dns_support = false
-  enable_dns_hostnames = false
-  enable_dns_support = true
-  instance_tenancy = default
-  ipv6_association_id =
-  ipv6_cidr_block =
-  main_route_table_id = rtb-0681966791d3ad652
-  owner_id = 856925507022
-  tags.% = 1
-  tags.Name = vpc-handson-hoge
+# aws_vpc.main:
+resource "aws_vpc" "main" {
+    arn                                  = "arn:aws:ec2:ap-northeast-1:041968548333:vpc/vpc-01682a619af75ba3e"
+    assign_generated_ipv6_cidr_block     = false
+    cidr_block                           = "10.0.0.0/16"
+    default_network_acl_id               = "acl-0ad31ee25579875d1"
+    default_route_table_id               = "rtb-04bf3e095219ef957"
+    default_security_group_id            = "sg-0969b48015fb3eef5"
+    dhcp_options_id                      = "dopt-0e6be5152c93e9ba7"
+    enable_dns_hostnames                 = false
+    enable_dns_support                   = true
+    enable_network_address_usage_metrics = false
+    id                                   = "vpc-01682a619af75ba3e"
+    instance_tenancy                     = "default"
+    ipv6_netmask_length                  = 0
+    main_route_table_id                  = "rtb-04bf3e095219ef957"
+    owner_id                             = "041968548333"
+    tags                                 = {
+        "Name" = "vpc-handson-hoge"
+    }
+    tags_all                             = {
+        "Name" = "vpc-handson-hoge"
+    }
+}
 ```
 
 Terraformが管理しているリソースは `terraform.tfstate` というJSONファイルに格納されます。  
@@ -316,15 +312,16 @@ Terraformコードの適用を行う際はこのファイルを参照し、差�
 main.tf                  terraform.tfstate        terraform.tfstate.backup
 # cat terraform.tfstate
 {
-    "version": 3,
-    "terraform_version": "0.11.13",
-    "serial": 5,
-    "lineage": "40f395d7-8d59-b14c-f92f-e836258630af",
-    "modules": [
-        {
-            "path": [
-                "root"
-            ],
+  "version": 4,
+  "terraform_version": "1.5.4",
+  "serial": 3,
+  "lineage": "883aaed2-e143-5312-0202-cebb01ed97bd",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "aws_vpc",
+      "name": "main",
 ```
 
 Terraformは **インフラをコードで宣言する** ためのツールです。  
@@ -348,16 +345,38 @@ Terraformで管理されているリソースを削除しましょう。
 実際に削除してみましょう。
 ```console
 # terraform destroy
-aws_vpc.main: Refreshing state... (ID: vpc-001c076e2cd2e79af)
+aws_vpc.main: Refreshing state... [id=vpc-01682a619af75ba3e]
 
-An execution plan has been generated and is shown below.
-Resource actions are indicated with the following symbols:
+Terraform used the selected providers to generate the following execution plan. Resource actions
+are indicated with the following symbols:
   - destroy
 
 Terraform will perform the following actions:
 
-  - aws_vpc.main
-
+  # aws_vpc.main will be destroyed
+  - resource "aws_vpc" "main" {
+      - arn                                  = "arn:aws:ec2:ap-northeast-1:041968548333:vpc/vpc-01682a619af75ba3e" -> null
+      - assign_generated_ipv6_cidr_block     = false -> null
+      - cidr_block                           = "10.0.0.0/16" -> null
+      - default_network_acl_id               = "acl-0ad31ee25579875d1" -> null
+      - default_route_table_id               = "rtb-04bf3e095219ef957" -> null
+      - default_security_group_id            = "sg-0969b48015fb3eef5" -> null
+      - dhcp_options_id                      = "dopt-0e6be5152c93e9ba7" -> null
+      - enable_dns_hostnames                 = false -> null
+      - enable_dns_support                   = true -> null
+      - enable_network_address_usage_metrics = false -> null
+      - id                                   = "vpc-01682a619af75ba3e" -> null
+      - instance_tenancy                     = "default" -> null
+      - ipv6_netmask_length                  = 0 -> null
+      - main_route_table_id                  = "rtb-04bf3e095219ef957" -> null
+      - owner_id                             = "041968548333" -> null
+      - tags                                 = {
+          - "Name" = "vpc-handson-hoge"
+        } -> null
+      - tags_all                             = {
+          - "Name" = "vpc-handson-hoge"
+        } -> null
+    }
 
 Plan: 0 to add, 0 to change, 1 to destroy.
 
@@ -373,7 +392,7 @@ Do you really want to destroy all resources?
 ```console
   Enter a value: yes
 
-aws_vpc.main: Destroying... (ID: vpc-001c076e2cd2e79af)
+aws_vpc.main: Destroying... [id=vpc-01682a619af75ba3e]
 aws_vpc.main: Destruction complete after 1s
 
 Destroy complete! Resources: 1 destroyed.
