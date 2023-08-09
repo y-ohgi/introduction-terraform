@@ -444,7 +444,7 @@ resource "aws_ecs_service" "main" {
 
 variable "domain" {
   description = "Route 53 で管理しているドメイン名"
-  type        = "string"
+  type        = string
 
   #FIXME:
   default = "poncotu.net"
@@ -453,14 +453,14 @@ variable "domain" {
 # Route53 Hosted Zone
 # https://www.terraform.io/docs/providers/aws/d/route53_zone.html
 data "aws_route53_zone" "main" {
-  name         = "${var.domain}"
+  name         = var.domain
   private_zone = false
 }
 
 # ACM
 # https://www.terraform.io/docs/providers/aws/r/acm_certificate.html
 resource "aws_acm_certificate" "main" {
-  domain_name = "${var.domain}"
+  domain_name = var.domain
 
   validation_method = "DNS"
 
