@@ -144,7 +144,7 @@ resource "aws_lb_target_group" "main" {
   name = "handson"
 
   # ターゲットグループを作成するVPC
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.main.id
 
   # ALBからECSタスクのコンテナへトラフィックを振り分ける設定
   port        = 80
@@ -152,7 +152,7 @@ resource "aws_lb_target_group" "main" {
   target_type = "ip"
 
   # コンテナへの死活監視設定
-  health_check = {
+  health_check {
     port = 80
     path = "/"
   }
@@ -162,18 +162,19 @@ resource "aws_lb_target_group" "main" {
 # https://www.terraform.io/docs/providers/aws/r/lb_listener_rule.html
 resource "aws_lb_listener_rule" "main" {
   # ルールを追加するリスナー
-  listener_arn = "${aws_lb_listener.main.arn}"
+  listener_arn = aws_lb_listener.main.arn
 
   # 受け取ったトラフィックをターゲットグループへ受け渡す
   action {
     type             = "forward"
-    target_group_arn = "${aws_lb_target_group.main.id}"
+    target_group_arn = aws_lb_target_group.main.id
   }
 
   # ターゲットグループへ受け渡すトラフィックの条件
   condition {
-    field  = "path-pattern"
-    values = ["*"]
+    path_pattern {
+      values = ["*"]
+    }
   }
 }
 ```
@@ -199,7 +200,7 @@ resource "aws_security_group" "ecs" {
   description = "handson ecs"
 
   # セキュリティグループを配置するVPC
-  vpc_id      = "${aws_vpc.main.id}"
+  vpc_id      = aws_vpc.main.id
   
   # セキュリティグループ内のリソースからインターネットへのアクセス許可設定
   # 今回の場合DockerHubへのPullに使用する。
@@ -218,7 +219,7 @@ resource "aws_security_group" "ecs" {
 # SecurityGroup Rule
 # https://www.terraform.io/docs/providers/aws/r/security_group.html
 resource "aws_security_group_rule" "ecs" {
-  security_group_id = "${aws_security_group.ecs.id}"
+  security_group_id = aws_security_group.ecs.id
 
   # インターネットからセキュリティグループ内のリソースへのアクセス許可設定
   type = "ingress"
@@ -243,7 +244,7 @@ resource "aws_ecs_service" "main" {
   depends_on = ["aws_lb_listener_rule.main"]
 
   # 当該ECSサービスを配置するECSクラスターの指定
-  cluster = "${aws_ecs_cluster.main.name}"
+  cluster = aws_ecs_cluster.main.name
 
   # データプレーンとしてFargateを使用する
   launch_type = "FARGATE"
@@ -252,20 +253,20 @@ resource "aws_ecs_service" "main" {
   desired_count = "1"
 
   # 起動するECSタスクのタスク定義
-  task_definition = "${aws_ecs_task_definition.main.arn}"
+  task_definition = aws_ecs_task_definition.main.arn
 
   # ECSタスクへ設定するネットワークの設定
   network_configuration = {
     # タスクの起動を許可するサブネット
-    subnets         = ["${aws_subnet.private_1a.id}", "${aws_subnet.private_1c.id}", "${aws_subnet.private_1d.id}"]
+    subnets         = [aws_subnet.private_1a.id, aws_subnet.private_1c.id, aws_subnet.private_1d.id]
     # タスクに紐付けるセキュリティグループ
-    security_groups = ["${aws_security_group.ecs.id}"]
+    security_groups = [aws_security_group.ecs.id]
   }
 
   # ECSタスクの起動後に紐付けるELBターゲットグループ
   load_balancer = [
     {
-      target_group_arn = "${aws_lb_target_group.main.arn}"
+      target_group_arn = aws_lb_target_group.main.arn
       container_name   = "nginx"
       container_port   = "80"
     },

@@ -14,7 +14,7 @@ httpリクエストを受け付けるロードバランサ(ALB)と、そのALB�
 resource "aws_security_group" "alb" {
   name        = "handson-alb"
   description = "handson alb"
-  vpc_id      = "${aws_vpc.main.id}"
+  vpc_id      = aws_vpc.main.id
 
   # セキュリティグループ内のリソースからインターネットへのアクセスを許可する
   egress {
@@ -32,7 +32,7 @@ resource "aws_security_group" "alb" {
 # SecurityGroup Rule
 # https://www.terraform.io/docs/providers/aws/r/security_group.html
 resource "aws_security_group_rule" "alb_http" {
-  security_group_id = "${aws_security_group.alb.id}"
+  security_group_id = aws_security_group.alb.id
 
   # セキュリティグループ内のリソースへインターネットからのアクセスを許可する
   type = "ingress"
@@ -50,8 +50,8 @@ resource "aws_lb" "main" {
   load_balancer_type = "application"
   name               = "handson"
 
-  security_groups = ["${aws_security_group.alb.id}"]
-  subnets         = ["${aws_subnet.public_1a.id}", "${aws_subnet.public_1c.id}", "${aws_subnet.public_1d.id}"]
+  security_groups = [aws_security_group.alb.id]
+  subnets         = [aws_subnet.public_1a.id, aws_subnet.public_1c.id, aws_subnet.public_1d.id]
 }
 ```
 
@@ -90,7 +90,7 @@ resource "aws_lb_listener" "main" {
 
   # ALBのarnを指定します。
   #XXX: arnはAmazon Resource Names の略で、その名の通りリソースを特定するための一意な名前(id)です。
-  load_balancer_arn = "${aws_lb.main.arn}"
+  load_balancer_arn = aws_lb.main.arn
 
   # "ok" という固定レスポンスを設定する
   default_action {

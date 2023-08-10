@@ -28,20 +28,20 @@ resource "aws_vpc" "main" {
 ```ruby
 variable "name" {
   description = "リソースに共通して付与する命名"
-  type        = "string"
+  type        = string
   default     = "handson"
 }
 
 resource "aws_vpc" "main" {
-  cidr_block       = "10.0.0.0/16"
+  cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = "${var.name}"
+    Name = var.name
   }
 }
 
 resource "aws_subnet" "public_1a" {
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.main.id
 
   availability_zone = "ap-northeast-1a"
   cidr_block        = "10.0.1.0/24"
@@ -59,16 +59,16 @@ resource "aws_subnet" "public_1a" {
 ```ruby
 variable "vpc_id" {
   description = "取り込むVPCのID"
-  type        = "string"
-  default     = "vpc-083474491091d1639""
+  type        = string
+  default     = "vpc-083474491091d1639"
 }
 
 data "aws_vpc" "main" {
-  id = "${var.vpc_id}"
+  id = var.vpc_id
 }
 
 resource "aws_subnet" "public_1a" {
-  vpc_id = "${data.aws_vpc.main.id}"
+  vpc_id = data.aws_vpc.main.id
 
   availability_zone = "ap-northeast-1a"
   cidr_block        = "10.0.1.0/24"
@@ -110,7 +110,7 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "public_1a" {
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.main.id
 
   availability_zone = "ap-northeast-1a"
   cidr_block        = "10.0.1.0/24"
@@ -132,7 +132,7 @@ resource "aws_security_group" "main" {
   description = "handson"
 
   # moduleを参照する
-  vpc_id      = "${module.network.vpc_id}"
+  vpc_id      = module.network.vpc_id
 }
 ```
 
@@ -144,7 +144,7 @@ resource "aws_vpc" "main" {
 }
 
 output "vpc_id" {
-  value       = "${module.vpc.vpc_id}"
+  value       = module.vpc.vpc_id
 }
 ```
 
@@ -164,7 +164,7 @@ resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
   
   tags = {
-    Name = "${local.name}"
+    Name = local.name
   }
 }
 ```
@@ -194,13 +194,13 @@ resource "aws_vpc" "main" {
 
 resource "aws_subnet" "public" {
   # length関数でsubnet_cidrsの数を取得し、その数ぶん繰り返し実行する
-  count = "${length(var.subnet_cidrs)}"
+  count = length(var.subnet_cidrs)
 
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.main.id
 
   # 現在の実行回数をcount.indexで取得でき、それをインデックスとして配列から値を取得する
-  availability_zone = "${var.azs[count.index]}"
-  cidr_block        = "${var.subnet_cidrs[count.index]}"
+  availability_zone = var.azs[count.index]
+  cidr_block        = var.subnet_cidrs[count.index]
 }
 ```
 
@@ -219,7 +219,7 @@ locals {
 }
 
 resource "aws_vpc" "main" {
-  cidr_block = "${locals.cidr}"
+  cidr_block = locals.cidr
 }
 ```
 

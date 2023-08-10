@@ -78,7 +78,7 @@ $ docker run \
     -w /terraform \
     -it \
     --entrypoint=ash \
-    hashicorp/terraform:0.11.13
+    hashicorp/terraform:1.5.4
 ```
 
 これでTerraformの実行環境が手に入りました
@@ -86,5 +86,6 @@ $ docker run \
 最後に、Docker内でTerraformを操作するためのコマンド `terraform` が動くか試してみましょう。
 ```console
 # terraform version
-Terraform v0.11.13
+Terraform v1.5.4
+on linux_arm64
 ```

@@ -38,7 +38,7 @@ $ aws ecr describe-repositories --query 'repositories[].repositoryName'
 ### Dockerのビルド
 ハンズオンリポジトリへチェックアウト
 ```console
-$ cd /path/to/introduction-terraform-example/laravel
+$ cd ~/Desktop/laravel/laravel
 ```
 
 nginxのビルド
@@ -59,7 +59,7 @@ $ docker build -t ${ECR_URI_APP} .
 ECRへログインします。  
 
 ```console
-$ $(aws ecr get-login --no-include-email)
+$ aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.ap-northeast-1.amazonaws.com
 ```
 
 nginxのpush

@@ -1,11 +1,11 @@
 variable "name" {
-  type = "string"
+  type = string
 }
 
 resource "aws_ecs_cluster" "this" {
-  name = "${var.name}"
+  name = var.name
 }
 
 output "cluster_name" {
-  value = "${aws_ecs_cluster.this.name}"
+  value = aws_ecs_cluster.this.name
 }
