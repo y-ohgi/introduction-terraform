@@ -69,7 +69,7 @@ USER ${UNAME}
 
 PHPを使用する場合はPHPの設定ファイル `php.ini` が欲しいため、その作成を行います。
 ```console
-$ mkdir -p docker/php/php.ini
+$ mkdir -p docker/php
 $ vi docker/php/php.ini
 ```
 ```
@@ -150,6 +150,9 @@ server {
 ```
 
 nginx用Dockerfileの記載を行います。
+```console
+$ vi docker/nginx/Dockerfile
+```
 
 ```Dockerfile
 FROM nginx:1.15-alpine
