@@ -4,11 +4,11 @@ Terraformについてハンズオン形式で学ぶドキュメントです。
 
 ## Version
 - Docker
-    - 18.09.3
+    - 23.0.5
 - docker-compose
-    - 1.23.2
+    - 2.17.3
 - Terraform
-    - 0.11.13
+    - 1.5.4
 
 ## 必要な環境
 - AWSアカウント
