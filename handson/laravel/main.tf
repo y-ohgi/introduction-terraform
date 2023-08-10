@@ -4,7 +4,7 @@ provider "aws" {
 }
 
 variable "name" {
-  type    = "string"
+  type    = string
   default = "myapp"
 }
 
@@ -14,7 +14,7 @@ variable "azs" {
 }
 
 variable "domain" {
-  type = "string"
+  type = string
 
   default = "ponkotu.me"
 }
@@ -22,37 +22,37 @@ variable "domain" {
 module "network" {
   source = "./network"
 
-  name = "${var.name}"
+  name = var.name
 
-  azs = "${var.azs}"
+  azs = var.azs
 }
 
 module "acm" {
   source = "./acm"
 
-  name = "${var.name}"
+  name = var.name
 
-  domain = "${var.domain}"
+  domain = var.domain
 }
 
 module "elb" {
   source = "./elb"
 
-  name = "${var.name}"
+  name = var.name
 
-  vpc_id            = "${module.network.vpc_id}"
-  public_subnet_ids = "${module.network.public_subnet_ids}"
-  domain            = "${var.domain}"
-  acm_id            = "${module.acm.acm_id}"
+  vpc_id            = module.network.vpc_id
+  public_subnet_ids = module.network.public_subnet_ids
+  domain            = var.domain
+  acm_id            = module.acm.acm_id
 }
 
 module "rds" {
   source = "./rds"
 
-  name = "${var.name}"
+  name = var.name
 
-  vpc_id     = "${module.network.vpc_id}"
-  subnet_ids = "${module.network.private_subnet_ids}"
+  vpc_id     = module.network.vpc_id
+  subnet_ids = module.network.private_subnet_ids
 
   database_name   = "mydatabase"
   master_username = "myusername"
@@ -62,20 +62,20 @@ module "rds" {
 module "ecs_cluster" {
   source = "./ecs_cluster"
 
-  name = "${var.name}"
+  name = var.name
 }
 
 module "ecs_laravel" {
   source = "./ecs_laravel"
 
-  name = "${var.name}"
+  name = var.name
 
-  cluster_name       = "${module.ecs_cluster.cluster_name}"
-  vpc_id             = "${module.network.vpc_id}"
-  subnet_ids         = "${module.network.private_subnet_ids}"
-  https_listener_arn = "${module.elb.https_listener_arn}"
+  cluster_name       = module.ecs_cluster.cluster_name
+  vpc_id             = module.network.vpc_id
+  subnet_ids         = module.network.private_subnet_ids
+  https_listener_arn = module.elb.https_listener_arn
 
-  db_host = "${module.rds.endpoint}"
+  db_host = module.rds.endpoint
 
   db_username = "myusername"
   db_password = "mypassword"
